@@ -38,7 +38,6 @@ exports.editItem = async (req, res, next) => {
     } else {
       imagePath = url + '/images/' + req.file.filename
     }
-    console.log( url);
     const item = new Item({
       title: req.body.title,
       description: req.body.description,

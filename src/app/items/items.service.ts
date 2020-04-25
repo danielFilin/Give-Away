@@ -26,12 +26,13 @@ export class ItemsService {
     itemData.append('_id', null);
     itemData.append('userId', null);
     // const item: Item = {_id: null, title: newItem.title, description: newItem.description, image: newItem.image, userId: null};
-    // console.log(item);
+    console.log(itemData);
     this.http.post<{message: string, item: Item}>(BACKEND_URL + 'post-items', itemData)
     .subscribe((responseData) => {
       // const item: Item = {id: responseData.item._id, title: responseData.item.title, description: responseData.item.description};
       this.items.push(responseData.item);
       this.UpdatedItems.next([...this.items]);
+      this.router.navigate(['/item-list']);
     });
   }
 
