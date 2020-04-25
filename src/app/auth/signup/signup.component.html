@@ -1,0 +1,67 @@
+<div class="d-flex justify-content-center" *ngIf='isLoading'>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="login">
+  <div class="login-header">
+    <h1>Signup</h1>
+  </div>
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" *ngIf='!isLoading'>
+    <div class="login-form">
+      <h4>ENTER YOUR EMAIL</h4>
+      <input
+        type="email"
+        class="input"
+        formControlName='email'>
+        <br>
+      <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" class="help-block">Please enter a valid email address</span>
+      <h4>ENTER YOUR NAME</h4>
+      <input
+        type="text"
+        class="input"
+        formControlName="name">
+        <br>
+      <span *ngIf="!signupForm.get('name').valid && signupForm.get('name').touched" class="help-block">Please enter your name</span>
+      <h4>ENTER YOUR PASSWORD</h4>
+      <input
+        type="password"
+        class="input"
+        formControlName="password">
+      <br>
+      <span *ngIf="!signupForm.get('password').valid && signupForm.get('email').touched" class="help-block">Please enter a password
+      </span>
+      <h4>REPEAT YOUR PASSWORD</h4>
+      <input
+      type="password"
+      class="input"
+      formControlName="repeatPassword">
+      <br>
+      <span *ngIf="!signupForm.get('repeatPassword').valid && signupForm.get('repeatPassword').touched" class="help-block">Please confirm your password</span>
+      <span *ngIf="differentPasswords" class="help-block">Your password do not match</span>
+      <br>
+      <button type="submit" class='login-button'>SIGNUP</button>
+      <br>
+      <span *ngIf="!signupForm.valid && signupForm.touched" class="help-block">You must fill in the form correctly</span>
+      <h2 *ngIf='prohibittedEmail'>You are trying to use an email that is being used already</h2>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <div class="modal" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Signup failed</h4>
+          <button type="button" class="close" id='someid' data-dismiss="modal" (click) = "hide()">&times;</button>
+        </div>
+        <div class="modal-body">
+          You entered incorrect data.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click) = "hide()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

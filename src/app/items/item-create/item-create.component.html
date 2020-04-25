@@ -1,0 +1,40 @@
+<div class="justify-content-center align-items-center container w-50">
+ <div class="row">
+  <form [formGroup]="itemCreateForm" id="new-item-form" (ngSubmit)="onSaveItem()" enctype="multipart/form-data">
+    <div class="form-group">
+      <h5 for="book-name">Item Title</h5>
+      <input
+        name='title'
+        type="text"
+        class="form-control"
+        placeholder="Insert item name"
+        formControlName="title"
+      >
+      <h5 for="book-name">Item description</h5>
+      <textarea
+        name='description'
+        type="text"
+        class="form-control"
+        placeholder="Describe your item"
+        formControlName="description">
+    </textarea>
+    </div>
+    <div class="custom-file">
+      <input type="file" class="form-control-file" id="customFile" #filePicker (change)='onImagePicked($event)'>
+      <label class="custom-file-label" for="customFile">Choose file</label>
+    </div>
+    <div class='image-preview' *ngIf='imagePreview !== "" && imagePreview && itemCreateForm.get("image").valid'>
+      <img [src]="imagePreview" [alt]="itemCreateForm.value.title">
+    </div>
+      <!-- <input
+        name='image'
+        type="file"
+        class="form-control-file"
+        formControlName="image"
+        > -->
+
+    <small class="form-text text-muted">Please enter the title of your item</small>
+    <button type='submit' class="btn btn-primary mt-3" >Add to collection</button>
+  </form>
+  </div>
+</div>

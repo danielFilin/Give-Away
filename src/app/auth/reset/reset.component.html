@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center" *ngIf='isLoading'>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="login">
+  <div class="login-header">
+    <h1>Password Reset</h1>
+  </div>
+  <form [formGroup]="resetForm" (ngSubmit)="onSubmit()" *ngIf='!isLoading'>
+    <div class="login-form">
+      <h4>ENTER YOUR EMAIL</h4>
+      <input
+        type="email"
+        class="input"
+        formControlName='email'>
+        <br>
+      <span *ngIf="!resetForm.get('email').valid && resetForm.get('email').touched" class="help-block">Please enter a valid email address</span>
+      <br>
+      <button type="submit" class='login-button'>Reset password</button>
+      <br>
+      <span *ngIf="!resetForm.valid && resetForm.touched" class="help-block">You must fill in the form correctly</span>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <div class="modal" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Signup failed</h4>
+          <button type="button" class="close" id='someid' data-dismiss="modal" (click) = "hide()">&times;</button>
+        </div>
+        <div class="modal-body">
+          {{errorMessage}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click) = "hide()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

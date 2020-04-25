@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center" *ngIf='isLoading'>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="login">
+  <div class="login-header">
+    <h1>Login</h1>
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" *ngIf='!isLoading'>
+    <div class="login-form">
+      <h4>ENTER YOUR EMAIL</h4>
+      <input
+        type="email"
+        class="input"
+        formControlName='email'>
+      <br>
+      <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched" class="help-block">Please enter a valid email address</span>
+      <h4>ENTER YOUR PASSWORD</h4>
+      <input
+        type="password"
+        class="input"
+        formControlName="password">
+      <br>
+      <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched" class="help-block">Please enter a password
+      </span>
+      <button type="submit" class='login-button'>LOGIN</button>
+      <br>
+      <a class="sign-up" routerLink="/auth/signup">Sign Up!</a>
+      <br>
+      <a class="no-access" routerLink="/auth/reset">Forgout your password?</a>
+      <span *ngIf="!loginForm.valid && loginForm.touched" class="help-block">You must fill in the form correctly</span>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <div class="modal" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Signup failed</h4>
+          <button type="button" class="close" id='someid' data-dismiss="modal" (click) = "hideModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          You entered incorrect data.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click) = "hideModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

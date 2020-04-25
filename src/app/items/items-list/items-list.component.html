@@ -1,0 +1,18 @@
+<h1 class='text-center'>Take me!</h1>
+<h3 class='text-center'>Give away used things you no longer need & find some things other people want to give away!</h3>
+<div class="d-flex justify-content-center" *ngIf='isLoading'>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="card" style="width: 18rem;" *ngFor='let item of items'>
+  <img class="card-img-top" [src]="item.imagePath" [alt]="item.title">
+  <div class="card-body">
+    <h5 class="card-title">{{item.title}}</h5>
+    <p class="card-text">{{item.description}}</p>
+    <a routerLink="/item-details/{{item._id}}" class="btn btn-success mr-3">Details</a>
+    <a routerLink="/edit/{{item._id}}" class="btn btn-primary mr-3" *ngIf='isAuthenticated'>Edit</a>
+    <a (click)='deleteItem(item._id)' class="btn btn-danger" *ngIf='isAuthenticated && userId == item.userId'>Delete</a>
+    <a (click)='addToCart(item._id)' class="btn btn-info mt-3" *ngIf='isAuthenticated && userId == item.userId'>Add to cart</a>
+  </div>
+</div>

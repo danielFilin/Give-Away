@@ -1,0 +1,4 @@
+<ul *ngFor = 'let item of cartItems'>
+  <li>{{item.productId.title}}: {{item.quantity}}</li>
+  <button (click)='onItemDelete(item._id)' class="btn btn-danger">Remove from Cart</button>
+</ul>

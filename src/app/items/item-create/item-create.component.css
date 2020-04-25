@@ -1,0 +1,25 @@
+h5{
+  text-align: center;
+}
+
+.image-preview {
+    height: 6rem;
+    margin: 1rem 0;
+}
+
+.image-preview img {
+  height: 100%;
+}
+
+#new-item-form{
+  width: 100%;
+}
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.wrong-input {
+  text-align: center;
+  color: red;
+}

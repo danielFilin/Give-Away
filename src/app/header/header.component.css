@@ -1,0 +1,7 @@
+.navigation-link {
+  color: white;
+}
+
+:hover .navigation-link {
+  color: black;
+}
