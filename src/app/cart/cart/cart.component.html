@@ -1,4 +1,16 @@
-<ul *ngFor = 'let item of cartItems'>
+<!-- <ul *ngFor = 'let item of cartItems'>
   <li>{{item.productId.title}}: {{item.quantity}}</li>
   <button (click)='onItemDelete(item._id)' class="btn btn-danger">Remove from Cart</button>
-</ul>
+</ul> -->
+<button (click)='orderItems()' class="btn btn-primary ">Order now!</button>
+<div class="card" *ngFor = 'let item of cartItems'>
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title col-sm-6">{{item.productId.title}}</h5>
+    <p class="card-text col-sm-6">{{item.productId.description}}</p>
+    <button (click)='onItemDelete(item._id)' class="btn btn-danger ">Remove from Cart</button>
+  </div>
+</div>
+

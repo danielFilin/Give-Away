@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment} from '../../environments/environment';
+import { Order } from '../models/order.model';
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -13,8 +14,10 @@ const BACKEND_URL = environment.apiUrl;
 export class ItemsService {
   private items: Item[] = [];
   private userCart: Item[] = [];
+  private orders: Order[] = [];
   private UpdatedItems = new Subject<Item[]>();
   private updatedCart = new Subject<Item[]>();
+  private updatedOrdersList = new Subject<Order>();
 
   constructor(private http: HttpClient, private router: Router, ) { }
 
@@ -52,8 +55,13 @@ export class ItemsService {
     return this.updatedCart.asObservable();
   }
 
-  getItems() {
-    this.http.get<{message: string, items: Item[]}>(BACKEND_URL + 'items')
+  getOrdersUpdateListener() {
+    return this.updatedOrdersList.asObservable();
+  }
+
+  getItems(postsPerPage: number, currentPage: number) {
+    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
+    this.http.get<{message: string, items: Item[]}>(BACKEND_URL + `items${queryParams}`)
     .subscribe((itemData) => {
       this.items = itemData.items;
       this.UpdatedItems.next([...this.items]);
@@ -110,9 +118,31 @@ export class ItemsService {
     this.http.delete<{message: string, updatedCart: Item[]}>(BACKEND_URL + `delete-from-cart/${itemId}`)
     .subscribe((responseData) => {
       this.userCart = responseData.updatedCart;
-      console.log(this.userCart);
       this.updatedCart.next([...this.userCart]);
     });
+  }
+
+  makeOrder() {
+    this.http.get<{message: string, order: Order}>(BACKEND_URL + `orders`)
+    .subscribe((itemData) => {
+      console.log(itemData);
+      this.updatedOrdersList.next(itemData.order);
+      this.router.navigate(['/item-list']);
+
+    });
+  }
+
+  getOrders() {
+    this.http.get<{message: string, orders: Order}>(BACKEND_URL + `get-orders`)
+    .subscribe((itemData) => {
+      console.log(itemData.orders)
+      //this.orders = [itemData.orders];
+      this.updatedOrdersList.next(itemData.orders);
+    });
+  }
+
+  getCurrentOrders() {
+    return this.orders;
   }
 
 }

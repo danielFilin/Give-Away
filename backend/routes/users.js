@@ -10,8 +10,6 @@ router.post('/login', usersController.login);
 
 router.post('/reset', usersController.reset);
 
-//router.get('/reset-password/:token', usersController.resetPassword);
-
 router.post('/reset-password', usersController.postNewPassword);
 
 

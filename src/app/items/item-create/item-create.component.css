@@ -23,3 +23,7 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
   text-align: center;
   color: red;
 }
+
+.form-margin-top{
+  margin-top: 5%;
+}

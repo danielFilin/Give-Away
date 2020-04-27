@@ -22,7 +22,7 @@ export class ItemCreateComponent implements OnInit {
   ngOnInit(): void {
 
     this.itemCreateForm = new FormGroup({
-      title: new FormControl(null, [Validators.required, Validators.email]),
+      title: new FormControl(null, [Validators.required]),
       description: new FormControl(null, Validators.required),
       image: new FormControl(null, { validators: [Validators.required], asyncValidators: [mimeType]})
     });

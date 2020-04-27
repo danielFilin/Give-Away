@@ -1,0 +1,6 @@
+<div *ngFor='let order of customerOrders; index as i'>
+  {{order.user.name}} {{order.user.userId}}
+  <div *ngFor='let products of order.products'>
+    {{products._id}} {{products.quantity}}
+</div>
+</div>

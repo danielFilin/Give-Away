@@ -18,6 +18,8 @@ import { ErrorInterceptor } from './error-interceptor';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { ResetComponent } from './auth/reset/reset.component';
 import { ResetPasswordFormComponent } from './auth/reset-password-form/reset-password-form.component';
+import { OrdersComponent } from './cart/orders/orders.component';
+import { NavigationComponent } from './items/navigation/navigation.component';
 
 
 
@@ -34,6 +36,8 @@ import { ResetPasswordFormComponent } from './auth/reset-password-form/reset-pas
     ResetPasswordFormComponent,
     CartComponent,
     PageNotFoundComponent,
+    OrdersComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,

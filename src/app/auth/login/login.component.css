@@ -10,6 +10,7 @@ h1, h2, h3, h4, h5, h6, a {
 .login {
   margin:0 auto;
   max-width:500px;
+  margin-top: 2.5%;
 }
 .login-header {
   color:black(255, 255, 255);
@@ -92,4 +93,8 @@ h1, h2, h3, h4, h5, h6, a {
 .help-block {
   color: red;
   display: block;
+}
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border: 2px solid red !important;
 }

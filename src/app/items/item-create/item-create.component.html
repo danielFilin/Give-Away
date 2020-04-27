@@ -1,6 +1,7 @@
+<app-navigation></app-navigation>
 <div class="justify-content-center align-items-center container w-50">
  <div class="row">
-  <form [formGroup]="itemCreateForm" id="new-item-form" (ngSubmit)="onSaveItem()" enctype="multipart/form-data">
+  <form [formGroup]="itemCreateForm" id="new-item-form" (ngSubmit)="onSaveItem()" enctype="multipart/form-data" class="form-margin-top">
     <div class="form-group">
       <h5 for="book-name">Item Title</h5>
       <input
@@ -8,8 +9,8 @@
         type="text"
         class="form-control"
         placeholder="Insert item name"
-        formControlName="title"
-      >
+        formControlName="title">
+      <span class='text-danger' *ngIf='itemCreateForm.controls.title.invalid && itemCreateForm.controls.title.touched'>This field cannot be left empty!</span>
       <h5 for="book-name">Item description</h5>
       <textarea
         name='description'
@@ -18,7 +19,9 @@
         placeholder="Describe your item"
         formControlName="description">
     </textarea>
+    <span class='text-danger' *ngIf='itemCreateForm.controls.description.invalid && itemCreateForm.controls.description.touched'>You must add a description</span>
     </div>
+    <label *ngIf='editMode'>File Name: {{this.itemCreateForm.value.title}}</label>
     <div class="custom-file">
       <input type="file" class="form-control-file" id="customFile" #filePicker (change)='onImagePicked($event)'>
       <label class="custom-file-label" for="customFile">Choose file</label>

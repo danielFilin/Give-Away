@@ -17,11 +17,14 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   isLoading = true;
   userId: string;
   isAuthenticated = false;
+  totalItems = 10;
+  postsPerPage = 3;
+  currentPage = 1;
 
   constructor(public itemsService: ItemsService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.itemsService.getItems();
+    this.itemsService.getItems(this.postsPerPage, this.currentPage);
     this.userId = this.authService.getUserId();
     this.itemsSubscription = this.itemsService.getItemsUpdateListener().subscribe((items: Item[]) => {
       this.items = items;

@@ -20,7 +20,11 @@ router.post('/cart/:id', checkAuth, itemsController.addToCart);
 
 router.get('/user-cart',checkAuth, itemsController.getCartItems);
 
-router.delete('/delete-from-cart/:id', checkAuth, itemsController.deleteFromCart)
+router.delete('/delete-from-cart/:id', checkAuth, itemsController.deleteFromCart);
+
+router.get('/orders', checkAuth, itemsController.postOrder);
+
+router.get('/get-orders', checkAuth, itemsController.getOrders);
 
 module.exports = router;
 
