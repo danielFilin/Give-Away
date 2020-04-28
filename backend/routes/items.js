@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/items/:id', itemsController.getItemById);
 
-router.get('/items', itemsController.getAllItems);
+router.get('/items', checkAuth, itemsController.getAllItems);
 
 router.post('/edit/:id', checkAuth, extractFile, itemsController.editItem);
 
@@ -25,6 +25,11 @@ router.delete('/delete-from-cart/:id', checkAuth, itemsController.deleteFromCart
 router.get('/orders', checkAuth, itemsController.postOrder);
 
 router.get('/get-orders', checkAuth, itemsController.getOrders);
+
+router.post('/favorites', checkAuth, itemsController.addToFavorites);
+
+router.get('/favorites', checkAuth, itemsController.getFavorites);
+
 
 module.exports = router;
 

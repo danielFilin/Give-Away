@@ -14,6 +14,9 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
 import { OrdersComponent } from './cart/orders/orders.component';
 import { ItemsModule } from './items/items.module';
 import { AuthModule } from './auth/auth.module';
+import { PersonalRoutingModule } from './personal-zone/my-items/personal-routing.module';
+import { PersonalModule } from './personal-zone/my-items/personal.module';
+import { MyFavoritesComponent } from './personal-zone/my-favorites/my-favorites.component';
 
 
 
@@ -24,6 +27,7 @@ import { AuthModule } from './auth/auth.module';
     CartComponent,
     PageNotFoundComponent,
     OrdersComponent,
+    MyFavoritesComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,8 +36,11 @@ import { AuthModule } from './auth/auth.module';
     ReactiveFormsModule,
     HttpClientModule,
     AuthRoutingModule,
+    PersonalRoutingModule,
     ItemsModule,
-    AuthModule
+    AuthModule,
+    PersonalModule
+
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

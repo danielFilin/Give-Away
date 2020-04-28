@@ -53,18 +53,19 @@ exports.getItemById = async (req, res, next) => {
   }
 }
 
-exports.getAllItems = async (req, res, next) => {
+exports.getAllItems = async (req, res) => {
   try {
-    const pageSize = +req.query.pagesize;
-    const currentPage = +req.query.page;
-    const itemsQuery = Item.find();
-    console.log(pageSize, currentPage)
-    if(pageSize && currentPage) {
-      itemsQuery.skip(pageSize * (currentPage-1))
-      .limit(pageSize);
+    let itemsQuery = Item.find();
+    if (+req.query.user) {
+      itemsQuery = Item.find({userId: req.user.id});
     }
+    // const pageSize = +req.query.pagesize;
+    // const currentPage = +req.query.page;
+    // if(pageSize && currentPage) {
+    //   itemsQuery.skip(pageSize * (currentPage-1))
+    //   .limit(pageSize).find({_id: req.user.id});
+    // }
     const items = await itemsQuery;
-    //const itemsQuery = await Item.find()
     //.populate('userId');
     //.select('title')
     res.status(200).json({
@@ -119,7 +120,6 @@ exports.addItem = async (req, res, next) => {
       imagePath: url + '/images/' + req.file.filename
     })
     const addedItem = await item.save();
-    console.log(addedItem);
     res.status(200).json({
       message: 'item was added',
       item: addedItem
@@ -155,6 +155,38 @@ exports.addToCart = async (req, res ) => {
     req.user.addToCart(productToCart);
     res.status(201).json({
       message: 'item was added to cart',
+    })
+  } catch (err) {
+    res.status(500).json({
+      err: err,
+      message: 'adding the item to cart failed'
+    })
+  }
+}
+
+exports.addToFavorites = async (req, res) => {
+  try {
+    productToFavorites =  await Item.findById(req.body.id);
+    req.user.addToFavorites(productToFavorites);
+    res.status(201).json({
+      message: 'item was added to cart',
+    })
+  } catch (err) {
+    res.status(500).json({
+      err: err,
+      message: 'adding the item to cart failed'
+    })
+  }
+}
+
+exports.getFavorites = async (req, res) => {
+  try {
+    let currentUser =  await User.findById(req.user._id);
+    const userFavorites = await currentUser.populate('favorites.items').execPopulate();
+    console.log(userFavorites);
+    res.status(201).json({
+      message: 'item was added to cart',
+      items: userFavorites.favorites
     })
   } catch (err) {
     res.status(500).json({

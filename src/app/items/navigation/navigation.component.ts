@@ -14,7 +14,7 @@ export class NavigationComponent implements OnInit {
   }
 
   configureView(form) {
-    this.itemsService.getItems(form.value.itemsPerPage, form.value.startingPage);
+    this.itemsService.getItems(form.value.itemsPerPage, form.value.startingPage, 0);
   }
 
 }

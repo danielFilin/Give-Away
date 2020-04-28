@@ -18,6 +18,7 @@ export class ItemsService {
   private UpdatedItems = new Subject<Item[]>();
   private updatedCart = new Subject<Item[]>();
   private updatedOrdersList = new Subject<Order>();
+  private updatedFavorites = new Subject<Item[]>();
 
   constructor(private http: HttpClient, private router: Router, ) { }
 
@@ -29,7 +30,7 @@ export class ItemsService {
     itemData.append('_id', null);
     itemData.append('userId', null);
     // const item: Item = {_id: null, title: newItem.title, description: newItem.description, image: newItem.image, userId: null};
-    console.log(itemData);
+
     this.http.post<{message: string, item: Item}>(BACKEND_URL + 'post-items', itemData)
     .subscribe((responseData) => {
       // const item: Item = {id: responseData.item._id, title: responseData.item.title, description: responseData.item.description};
@@ -59,8 +60,12 @@ export class ItemsService {
     return this.updatedOrdersList.asObservable();
   }
 
-  getItems(postsPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
+  getFavoritesListener() {
+    return this.updatedFavorites.asObservable();
+  }
+
+  getItems(postsPerPage: number, currentPage: number, user: number) {
+    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}&user=${user}`;
     this.http.get<{message: string, items: Item[]}>(BACKEND_URL + `items${queryParams}`)
     .subscribe((itemData) => {
       this.items = itemData.items;
@@ -125,7 +130,6 @@ export class ItemsService {
   makeOrder() {
     this.http.get<{message: string, order: Order}>(BACKEND_URL + `orders`)
     .subscribe((itemData) => {
-      console.log(itemData);
       this.updatedOrdersList.next(itemData.order);
       this.router.navigate(['/item-list']);
 
@@ -135,14 +139,27 @@ export class ItemsService {
   getOrders() {
     this.http.get<{message: string, orders: Order}>(BACKEND_URL + `get-orders`)
     .subscribe((itemData) => {
-      console.log(itemData.orders)
-      //this.orders = [itemData.orders];
       this.updatedOrdersList.next(itemData.orders);
     });
   }
 
   getCurrentOrders() {
     return this.orders;
+  }
+
+  onAddToFavorites(itemId) {
+    const favoriteItemId = {id: itemId};
+    this.http.post<{message: string}>(BACKEND_URL + `favorites`, favoriteItemId)
+    .subscribe((responseData) => {
+
+    });
+  }
+
+  getFavorites() {
+    this.http.get<{message: string, items: { items: Item[]}}>(BACKEND_URL + `favorites`)
+    .subscribe((responseData) => {
+      this.updatedFavorites.next(responseData.items.items);
+    });
   }
 
 }

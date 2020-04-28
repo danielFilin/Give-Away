@@ -19,10 +19,14 @@ const userSchema = mongoose.Schema({
   resetToken: String,
   resetTokenExpiration: Date,
   cart: {
-    items: [{productId: { type: Schema.Types.ObjectId, ref: 'Item', required: true},
-    quantity: {type: Number, required: true}
+    items: [{productId:
+       { type: Schema.Types.ObjectId, ref: 'Item', required: true},
+        quantity: {type: Number, required: true}
     }
   ]
+  },
+  favorites: {
+    items: [{ type: Schema.Types.ObjectId, ref: 'Item', required: true}]
   }
 });
 
@@ -48,6 +52,15 @@ userSchema.methods.addToCart = function(item) {
 
   this.cart = updatedCart;
   return this.save();
+}
+
+userSchema.methods.addToFavorites = function(item) {
+  if (!this.favorites.items.includes(item._id)) {
+    this.favorites.items.push(
+      item._id
+    )
+    return this.save();
+  }
 }
 
 userSchema.methods.clearCart = function() {

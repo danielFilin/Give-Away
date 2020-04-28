@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-center" *ngIf='isLoading'>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="card" style="width: 18rem;" *ngFor='let item of items'>
+  <img class="card-img-top" [src]="item.imagePath" [alt]="item.title">
+  <div class="card-body">
+    <h5 class="card-title">{{item.title}}</h5>
+    <p class="card-text">{{item.description}}</p>
+    <a routerLink="/edit/{{item._id}}" class="btn btn-primary mr-3" >Edit</a>
+    <a (click)='deleteItem(item._id)' class="btn btn-danger">Delete</a>
+  </div>
+</div>

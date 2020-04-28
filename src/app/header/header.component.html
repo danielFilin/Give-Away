@@ -19,6 +19,16 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      <div class="dropdown" *ngIf='isUserAuthenticated'>
+        <button class="btn btn-secondary dropdown-toggle mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Personal Zone
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" routerLink="/my-items">My Items</a>
+          <a class="dropdown-item" href="/my-favorites">My Favorites</a>
+          <a class="dropdown-item" href="/item-create">Add new Item</a>
+        </div>
+      </div>
       <li class="nav-item" *ngIf='!isUserAuthenticated'>
         <a class="nav-link" routerLink="/auth/login" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['is-active']">Login</a>
       </li>

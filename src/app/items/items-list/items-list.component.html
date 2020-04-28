@@ -13,8 +13,9 @@
       <h5 class="card-title">{{item.title}}</h5>
       <p class="card-text">{{item.description}}</p>
       <a routerLink="/item-details/{{item._id}}" class="btn btn-success mr-3">Details</a>
-      <a routerLink="/edit/{{item._id}}" class="btn btn-primary mr-3" *ngIf='isAuthenticated && userId == item.userId'>Edit</a>
-      <a (click)='deleteItem(item._id)' class="btn btn-danger" *ngIf='isAuthenticated && userId == item.userId'>Delete</a>
+      <a (click)='addToFavorites(item._id)' class="btn btn-primary mr-3" *ngIf='isAuthenticated && userId != item.userId'>Add to favorites</a>
+      <!-- <a routerLink="/edit/{{item._id}}" class="btn btn-primary mr-3" *ngIf='isAuthenticated && userId == item.userId'>Edit</a>
+      <a (click)='deleteItem(item._id)' class="btn btn-danger" *ngIf='isAuthenticated && userId == item.userId'>Delete</a> -->
       <a (click)='addToCart(item._id)' class="btn btn-info" *ngIf='isAuthenticated && userId != item.userId'>Add to cart</a>
     </div>
   </div>

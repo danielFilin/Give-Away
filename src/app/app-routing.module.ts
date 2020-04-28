@@ -5,7 +5,6 @@ import { ItemsListComponent } from './items/items-list/items-list.component';
 import { ItemDetailsComponent } from './items/item-details/item-details.component';
 import { CartComponent } from './cart/cart/cart.component';
 import { AuthGuard } from './auth/auth.guard';
-import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { OrdersComponent } from './cart/orders/orders.component';
 import { NavigationComponent } from './items/navigation/navigation.component';
 

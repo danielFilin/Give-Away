@@ -24,7 +24,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   constructor(public itemsService: ItemsService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.itemsService.getItems(this.postsPerPage, this.currentPage);
+    this.itemsService.getItems(this.postsPerPage, this.currentPage, 0);
     this.userId = this.authService.getUserId();
     this.itemsSubscription = this.itemsService.getItemsUpdateListener().subscribe((items: Item[]) => {
       this.items = items;
@@ -38,12 +38,16 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   }
 
 
-  deleteItem(itemId){
+  deleteItem(itemId) {
     this.itemsService.onDelete(itemId);
   }
 
   addToCart(itemId) {
     this.itemsService.onAddToCart(itemId);
+  }
+
+  addToFavorites(itemId) {
+    this.itemsService.onAddToFavorites(itemId);
   }
 
   ngOnDestroy() {
