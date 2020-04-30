@@ -11,15 +11,22 @@ import { Subscription } from 'rxjs';
 export class MyFavoritesComponent implements OnInit, OnDestroy {
   favorites: Item[] = [];
   favoritesSubscription: Subscription;
+  isLoading = false;
 
   constructor(private itemsService: ItemsService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.itemsService.getFavorites();
-    this.itemsService.getFavoritesListener().subscribe((favorites) => {
-      console.log(favorites);
+    this.favoritesSubscription = this.itemsService.getFavoritesListener().subscribe((favorites) => {
       this.favorites = favorites;
+      this.isLoading = false;
     });
+  }
+
+  onFavoriteRemove(itemId) {
+    this.itemsService.removeFromFavorites(itemId);
+    this.isLoading = true;
   }
 
   ngOnDestroy() {

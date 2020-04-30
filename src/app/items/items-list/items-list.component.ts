@@ -27,27 +27,17 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     this.itemsService.getItems(this.postsPerPage, this.currentPage, 0);
     this.userId = this.authService.getUserId();
     this.itemsSubscription = this.itemsService.getItemsUpdateListener().subscribe((items: Item[]) => {
-      this.items = items;
+      if (items !== undefined) {
+        this.items = items;
+      }
       this.isLoading = false;
     });
+
     this.isAuthenticated = this.authService.getIsAuthenticated();
     this.authSubscription = this.authService.getAuthStatusListener().subscribe((authStatus) => {
       this.isAuthenticated = authStatus;
       this.userId = this.authService.getUserId();
     });
-  }
-
-
-  deleteItem(itemId) {
-    this.itemsService.onDelete(itemId);
-  }
-
-  addToCart(itemId) {
-    this.itemsService.onAddToCart(itemId);
-  }
-
-  addToFavorites(itemId) {
-    this.itemsService.onAddToFavorites(itemId);
   }
 
   ngOnDestroy() {

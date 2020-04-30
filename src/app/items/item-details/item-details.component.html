@@ -1,1 +1,30 @@
-<h1>{{item?.title}}</h1>
+<div class="jumbotron text-center hoverable p-4">
+  <div class="row">
+    <div class="col-md-4 offset-md-1 mx-3 my-3">
+      <div class="view overlay">
+        <img [src]="item?.imagePath" class="img-fluid" alt="Sample image for first version of blog listing">
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+    </div>
+  <div class="col-md-7 text-md-left ml-3 mt-3">
+        <h3>{{item?.title}}</h3>
+      <p class="font-weight-normal">description: {{item?.description}}</p>
+      <p class="font-weight-normal">by <a><strong>{{user}}</strong></a> created at:</p>
+      <button (click)='addToCart($event, item._id)' class="btn btn-success mr-3">
+        <span *ngIf='isUpdating && btnValue == "Add to Cart"' class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+        </span>
+        {{isUpdating && btnValue == "Add to Cart"? 'Loading': 'Add to Cart'}}
+      </button>
+      <button class="btn btn-primary" (click)='addToFavorites($event, item._id)'>
+        <span *ngIf='isUpdating && btnValue == "Add to Favorites"' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{isUpdating && btnValue == "Add to Favorites"? 'Loading': 'Add to Favorites'}}</button>
+      <p class="lead ">
+        <a class="btn btn-primary back-navigation mt-5" routerLink="/item-list">Go back to items list</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+

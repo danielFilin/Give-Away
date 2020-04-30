@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ItemsService } from '../items.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Item } from 'src/app/models/item.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-item-details',
   templateUrl: './item-details.component.html',
   styleUrls: ['./item-details.component.css']
 })
-export class ItemDetailsComponent implements OnInit {
+export class ItemDetailsComponent implements OnInit, OnDestroy {
   item: Item;
+  user: object;
+  isUpdating = false;
+  favoritesSubscription: Subscription;
+  cartUpdateSubscription: Subscription;
+  btnValue: string;
+
+
   constructor(private itemsService: ItemsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -23,7 +31,33 @@ export class ItemDetailsComponent implements OnInit {
           title: data.items.title,
           userId: data.items.userId
         };
+        this.user = data.creator['name'];
       });
     });
+
+    this.cartUpdateSubscription = this.itemsService.getCartUpdateListener().subscribe( () => {
+      this.isUpdating = false;
+    });
+
+    this.favoritesSubscription = this.itemsService.getFavoritesListener().subscribe( () => {
+      this.isUpdating = false;
+      this.btnValue = '';
+    });
+  }
+
+  addToCart(event, itemId) {
+    this.btnValue = event.srcElement.innerText;
+    this.isUpdating = true;
+    this.itemsService.onAddToCart(itemId);
+  }
+
+  addToFavorites(event, itemId) {
+    this.isUpdating = true;
+    this.btnValue = event.srcElement.innerText;
+    this.itemsService.onAddToFavorites(itemId);
+  }
+
+  ngOnDestroy() {
+    this.favoritesSubscription.unsubscribe();
   }
 }

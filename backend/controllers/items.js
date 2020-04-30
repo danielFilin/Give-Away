@@ -42,11 +42,12 @@ exports.postOrder = async (req, res) => {
 
 exports.getItemById = async (req, res, next) => {
   try {
-    itemId = req.params.id;
-    const item = await Item.findById(itemId);
+    const item = await Item.findById(req.params.id);
+    const creatorInfo = await User.findById(item.userId);
     res.status(200).json({
       message: 'items fetched',
-      items: item
+      items: item,
+      creator: creatorInfo
     })
   } catch (err) {
     console.log(err);
@@ -179,11 +180,26 @@ exports.addToFavorites = async (req, res) => {
   }
 }
 
+exports.deleteFromFavorites = async (req, res) => {
+  try {
+    const currentUser = await User.findById(req.user._id);
+    const updatedFavorites = currentUser.favorites.items.filter(item => item._id != req.params.id)
+    currentUser.favorites.items = updatedFavorites;
+    currentUser.save();
+    const detailedCart = await currentUser.populate('favorites.items').execPopulate();
+    res.status(201).json({
+      message: 'item was deleted from favorites',
+      updatedFavorites: detailedCart.favorites
+    })
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 exports.getFavorites = async (req, res) => {
   try {
     let currentUser =  await User.findById(req.user._id);
     const userFavorites = await currentUser.populate('favorites.items').execPopulate();
-    console.log(userFavorites);
     res.status(201).json({
       message: 'item was added to cart',
       items: userFavorites.favorites

@@ -5,9 +5,6 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <a class="navbar-brand" routerLink="" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['is-active']">Home</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item" *ngIf='isUserAuthenticated'>
-        <a class="nav-link" routerLink="/item-create" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['is-active']">Add new Item</a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/item-list" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['is-active']">Item List</a>
       </li>

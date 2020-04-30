@@ -29,11 +29,9 @@ export class ItemsService {
     itemData.append('image', newItem.imagePath, newItem.title);
     itemData.append('_id', null);
     itemData.append('userId', null);
-    // const item: Item = {_id: null, title: newItem.title, description: newItem.description, image: newItem.image, userId: null};
 
     this.http.post<{message: string, item: Item}>(BACKEND_URL + 'post-items', itemData)
     .subscribe((responseData) => {
-      // const item: Item = {id: responseData.item._id, title: responseData.item.title, description: responseData.item.description};
       this.items.push(responseData.item);
       this.UpdatedItems.next([...this.items]);
       this.router.navigate(['/item-list']);
@@ -49,7 +47,7 @@ export class ItemsService {
   }
 
   getSingleItem(id) {
-    return this.http.get<{message: string, items: Item}>(BACKEND_URL + `items/${id}`);
+    return this.http.get<{message: string, items: Item, creator: object}>(BACKEND_URL + `items/${id}`);
   }
 
   getCartUpdateListener() {
@@ -107,7 +105,7 @@ export class ItemsService {
    onAddToCart(itemId) {
     this.http.post<{message: string}>(BACKEND_URL + `cart/${itemId}`, itemId)
     .subscribe((responseData) => {
-      //this.router.navigate(['/item-list']);
+      this.updatedCart.next();
     });
   }
 
@@ -151,7 +149,7 @@ export class ItemsService {
     const favoriteItemId = {id: itemId};
     this.http.post<{message: string}>(BACKEND_URL + `favorites`, favoriteItemId)
     .subscribe((responseData) => {
-
+      this.updatedFavorites.next();
     });
   }
 
@@ -159,6 +157,13 @@ export class ItemsService {
     this.http.get<{message: string, items: { items: Item[]}}>(BACKEND_URL + `favorites`)
     .subscribe((responseData) => {
       this.updatedFavorites.next(responseData.items.items);
+    });
+  }
+
+  removeFromFavorites(itemId) {
+    this.http.delete<{message: string,  updatedFavorites: { items: Item[]}}>(BACKEND_URL + `delete-from-favorites/${itemId}`)
+    .subscribe((responseData) => {
+      this.updatedFavorites.next(responseData.updatedFavorites.items);
     });
   }
 

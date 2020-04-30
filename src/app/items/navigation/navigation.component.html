@@ -1,22 +1,20 @@
 <!-- (submit)='onSelect(selectForm)' -->
 <form  class='mt-5' #selectForm='ngForm' (submit)='configureView(selectForm)'>
-  <h4 class='text-center'>Configure item view</h4>
-   <div class="form-group" >
-     <label for="sel1">Select starting page:</label>
-     <select class="form-control w-25" name='startingPage' ngModel #startingPage='ngModel'>
+   <div class="form-group d-flex">
+     <label for="sel1">Starting page:</label>
+     <select class="form-control nav-select mr-1 ml-1" name='startingPage' ngModel #startingPage='ngModel'>
        <option>1</option>
        <option>2</option>
        <option>3</option>
        <option>4</option>
      </select>
+     <label for="sel1">Items per page:</label>
+     <select class="form-control ml-1 mr-3 nav-select" name='itemsPerPage' ngModel #pagesNumber='ngModel'>
+       <option>1</option>
+       <option>10</option>
+       <option>25</option>
+     </select>
+     <button class="btn btn-primary">Select</button>
    </div>
-   <div class="form-group">
-    <label for="sel1">Select amount of items per page:</label>
-    <select class="form-control w-25" name='itemsPerPage' ngModel #pagesNumber='ngModel'>
-      <option>1</option>
-      <option>10</option>
-      <option>25</option>
-    </select>
-  </div>
-   <button class="btn btn-primary mb-3">Select</button>
+
  </form>

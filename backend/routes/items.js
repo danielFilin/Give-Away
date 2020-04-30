@@ -30,6 +30,8 @@ router.post('/favorites', checkAuth, itemsController.addToFavorites);
 
 router.get('/favorites', checkAuth, itemsController.getFavorites);
 
+router.delete('/delete-from-favorites/:id', checkAuth, itemsController.deleteFromFavorites);
+
 
 module.exports = router;
 
