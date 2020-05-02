@@ -19,6 +19,10 @@ const itemSchema = mongoose.Schema({
   imagePath: {
     type: String,
     required: true
+  },
+  category: {
+    type: String,
+    required: true
   }
 });
 

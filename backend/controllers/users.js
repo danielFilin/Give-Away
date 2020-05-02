@@ -86,7 +86,7 @@ exports.reset = async (req, res) => {
       throw new Error ('Account with this email is not found');
     }
     user.resetToken = token;
-    user.resetTokenExpiration = Date.now() + 3600000;
+    user.resetTokenExpiration = Date.now() + 36000000;
     await user.save();
     transporter.sendMail({
       to: user.email,

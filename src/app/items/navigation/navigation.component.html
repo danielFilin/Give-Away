@@ -1,6 +1,7 @@
 <!-- (submit)='onSelect(selectForm)' -->
 <form  class='mt-5' #selectForm='ngForm' (submit)='configureView(selectForm)'>
    <div class="form-group d-flex">
+     <h5 class='mr-5'>Configure View: </h5>
      <label for="sel1">Starting page:</label>
      <select class="form-control nav-select mr-1 ml-1" name='startingPage' ngModel #startingPage='ngModel'>
        <option>1</option>

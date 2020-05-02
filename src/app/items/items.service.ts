@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Item } from '../models/item.model';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment} from '../../environments/environment';
 import { Order } from '../models/order.model';
 
@@ -20,11 +20,12 @@ export class ItemsService {
   private updatedOrdersList = new Subject<Order>();
   private updatedFavorites = new Subject<Item[]>();
 
-  constructor(private http: HttpClient, private router: Router, ) { }
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
 
   addItem(newItem) {
     const itemData = new FormData();
     itemData.append('title', newItem.title);
+    itemData.append('category', newItem.category);
     itemData.append('description', newItem.description);
     itemData.append('image', newItem.imagePath, newItem.title);
     itemData.append('_id', null);
@@ -62,12 +63,22 @@ export class ItemsService {
     return this.updatedFavorites.asObservable();
   }
 
-  getItems(postsPerPage: number, currentPage: number, user: number) {
-    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}&user=${user}`;
+  getItems(postsPerPage: number, currentPage: number, category: string, user: number) {
+    const queryParams = `?category=${category}&pagesize=${postsPerPage}&page=${currentPage}&user=${user}`;
     this.http.get<{message: string, items: Item[]}>(BACKEND_URL + `items${queryParams}`)
     .subscribe((itemData) => {
       this.items = itemData.items;
       this.UpdatedItems.next([...this.items]);
+    });
+  }
+
+  getItemsByCategory(category) {
+    const queryParams = category;
+    this.http.get<{message: string, items: Item[]}>(BACKEND_URL + `items-category/${queryParams}`)
+    .subscribe((itemData) => {
+      this.items = itemData.items;
+      this.UpdatedItems.next([...this.items]);
+      // this.router.navigate(['/item-list']);
     });
   }
 
@@ -76,6 +87,7 @@ export class ItemsService {
     if (typeof(item.imagePath) === 'object') {
       itemData = new FormData();
       itemData.append('title', item.title);
+      itemData.append('category', item.category);
       itemData.append('description', item.description);
       itemData.append('userId', item.userId);
       itemData.append('image', item.imagePath, item.title);

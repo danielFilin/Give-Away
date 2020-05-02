@@ -10,6 +10,23 @@
         placeholder="Insert item name"
         formControlName="title">
       <span class='text-danger' *ngIf='itemCreateForm.controls.title.invalid && itemCreateForm.controls.title.touched'>This field cannot be left empty!</span>
+      <h5 for="book-name">Sell or Give Away?</h5>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="true" id="defaultCheck1" name='giveAway' formControlName='giveAway' (change)='togglePriceView()'>
+        <label class="form-check-label" for="defaultCheck1">
+          Give Away?
+        </label>
+      </div>
+      <div *ngIf='showPrice'>
+        <h6 for="book-name" >Price</h6>
+        <input
+          name='price'
+          type="number"
+          class="form-control w-25"
+          placeholder="Insert item name"
+          formControlName="price">
+        <span class='text-danger' *ngIf='itemCreateForm.controls.price.invalid && itemCreateForm.controls.price.touched'>This field cannot be left empty!</span>
+      </div>
       <h5 for="book-name">Item description</h5>
       <textarea
         name='description'
@@ -18,6 +35,21 @@
         placeholder="Describe your item"
         formControlName="description">
     </textarea>
+    <h5 for="book-name">Choose category</h5>
+    <select
+      name='category'
+      type="text"
+      class="browser-default custom-select"
+      placeholder="Insert item name"
+      formControlName="category">
+      <!-- <option selected>Open this select menu</option> -->
+      <option value="furniture">Furniture</option>
+      <option value="toys">Toys</option>
+      <option value="books">Books</option>
+      <option value="other">Other</option>
+
+    </select>
+    <span class='text-danger' *ngIf='itemCreateForm.controls.category.invalid && itemCreateForm.controls.category.touched'>This field cannot be left empty!</span>
     <span class='text-danger' *ngIf='itemCreateForm.controls.description.invalid && itemCreateForm.controls.description.touched'>You must add a description</span>
     </div>
     <label *ngIf='editMode'>File Name: {{this.itemCreateForm.value.title}}</label>

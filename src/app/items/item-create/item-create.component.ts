@@ -15,6 +15,7 @@ export class ItemCreateComponent implements OnInit {
   editMode = false;
   newItem: Item;
   imagePreview: string;
+  showPrice = false;
 
 
   constructor(private itemsService: ItemsService, private route: ActivatedRoute, private router: Router) { }
@@ -24,6 +25,9 @@ export class ItemCreateComponent implements OnInit {
     this.itemCreateForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
       description: new FormControl(null, Validators.required),
+      category: new FormControl(null, Validators.required),
+      giveAway: new FormControl(true, Validators.required),
+      price: new FormControl(null),
       image: new FormControl(null, { validators: [Validators.required], asyncValidators: [mimeType]})
     });
 
@@ -37,12 +41,18 @@ export class ItemCreateComponent implements OnInit {
             description: data.items.description,
             imagePath: data.items.imagePath,
             title: data.items.title,
-            userId: data.items.userId
+            category: data.items.category,
+            userId: data.items.userId,
+            giveAway: data.items.giveAway,
+            price: data.items.price
           };
           this.itemCreateForm.setValue({
-            title: this.newItem.title,
+            title: data.items.title,
             description: data.items.description,
-            image: data.items.imagePath
+            image: data.items.imagePath,
+            category: data.items.category,
+            giveAway: data.items.giveAway,
+            price: data.items.price
           });
         });
       }
@@ -60,30 +70,48 @@ export class ItemCreateComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  onSaveItem() {
-  // if (this.itemCreateForm.invalid) {
-  //   return;
-  // }
-
-  if (!this.editMode) {
-    const item: Item = {
-      title: this.itemCreateForm.value.title,
-      description: this.itemCreateForm.value.description,
-      imagePath: this.itemCreateForm.value.image,
-      _id: null,
-      userId: null
-    };
-    this.itemsService.addItem(item);
+  togglePriceView() {
+  if (this.itemCreateForm.value.giveAway) {
+    this.showPrice = false;
   } else {
-    console.log(this.itemCreateForm.value.image);
-    const item: Item = {
-      title: this.itemCreateForm.value.title,
-      description: this.itemCreateForm.value.description,
-      imagePath: this.itemCreateForm.value.image,
-      _id: this.newItem._id,
-      userId: this.newItem.userId
-    };
-    this.itemsService.editItem(item);
-  }
+    this.showPrice = true;
   }
 }
+
+  onSaveItem() {
+
+    if (this.itemCreateForm.invalid) {
+    return;
+    }
+
+    if (!this.editMode) {
+      const item: Item = {
+        title: this.itemCreateForm.value.title,
+        description: this.itemCreateForm.value.description,
+        imagePath: this.itemCreateForm.value.image,
+        category: this.itemCreateForm.value.category,
+        giveAway: this.itemCreateForm.value.giveAway,
+        price: this.itemCreateForm.value.price,
+        _id: null,
+        userId: null
+      };
+      this.itemsService.addItem(item);
+    } else {
+      console.log(this.itemCreateForm.value.image);
+      const item: Item = {
+        title: this.itemCreateForm.value.title,
+        description: this.itemCreateForm.value.description,
+        imagePath: this.itemCreateForm.value.image,
+        category: this.itemCreateForm.value.category,
+        giveAway: this.itemCreateForm.value.giveAway,
+        price: this.itemCreateForm.value.price,
+        _id: this.newItem._id,
+        userId: this.newItem.userId
+      };
+      this.itemsService.editItem(item);
+    }
+    }
+  }
+
+
+

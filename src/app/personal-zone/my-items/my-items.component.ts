@@ -17,10 +17,13 @@ export class MyItemsComponent implements OnInit {
   constructor(private itemsService: ItemsService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.itemsService.getItems(25, 1, 1);
+    this.itemsService.getItems(25, 1, null, 1);
     this.userId = this.authService.getUserId();
     this.itemsSubscription = this.itemsService.getItemsUpdateListener().subscribe((items: Item[]) => {
-      this.items = items;
+      const itemsCreatedByCurrentUser = items.filter( (item) => {
+        return item.userId === this.userId;
+      });
+      this.items = itemsCreatedByCurrentUser;
       this.isLoading = false;
     });
     // this.isAuthenticated = this.authService.getIsAuthenticated();

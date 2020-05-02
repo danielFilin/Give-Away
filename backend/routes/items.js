@@ -10,6 +10,8 @@ router.get('/items/:id', itemsController.getItemById);
 
 router.get('/items', checkAuth, itemsController.getAllItems);
 
+// router.get('/items-category/:category', checkAuth, itemsController.getItemsByCategory);
+
 router.post('/edit/:id', checkAuth, extractFile, itemsController.editItem);
 
 router.post('/post-items',checkAuth, extractFile, itemsController.addItem);

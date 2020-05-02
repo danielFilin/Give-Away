@@ -57,16 +57,23 @@ exports.getItemById = async (req, res, next) => {
 exports.getAllItems = async (req, res) => {
   try {
     let itemsQuery = Item.find();
-    if (+req.query.user) {
-      itemsQuery = Item.find({userId: req.user.id});
-    }
+    // if (+req.query.user) {
+    //   itemsQuery = Item.find({userId: req.user.id});
+    // }
     // const pageSize = +req.query.pagesize;
     // const currentPage = +req.query.page;
     // if(pageSize && currentPage) {
     //   itemsQuery.skip(pageSize * (currentPage-1))
     //   .limit(pageSize).find({_id: req.user.id});
     // }
+    console.log(req.query.category)
+    const category = req.query.category;
+    console.log(category == 'null')
+    if (req.query.category !== 'null') {
+      itemsQuery = Item.find({category: req.query.category});;
+    }
     const items = await itemsQuery;
+    console.log(items);
     //.populate('userId');
     //.select('title')
     res.status(200).json({
@@ -77,6 +84,23 @@ exports.getAllItems = async (req, res) => {
     console.log(err);
   }
 }
+
+// exports.getItemsByCategory = async (req, res) => {
+//   try {
+//     console.log(req.params.category);
+//     const items = await Item.find({category: req.params.category});;
+//     //.populate('userId');
+//     //.select('title')
+//     console.log(items);
+//     res.status(200).json({
+//       message: 'items fetched',
+//       items: items
+//     })
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
+
 
 exports.editItem = async (req, res, next) => {
   try {
@@ -92,7 +116,8 @@ exports.editItem = async (req, res, next) => {
       description: req.body.description,
       _id: req.params.id,
       imagePath: imagePath,
-      userId: req.body.userId
+      userId: req.body.userId,
+      category: req.body.category
     })
     const updateResult = await Item.updateOne({_id: req.params.id, userId: req.userData.userId}, item);
     if (updateResult.n > 0) {
@@ -118,6 +143,7 @@ exports.addItem = async (req, res, next) => {
       title: req.body.title,
       description: req.body.description,
       userId: req.userData.userId,
+      category: req.body.category,
       imagePath: url + '/images/' + req.file.filename
     })
     const addedItem = await item.save();

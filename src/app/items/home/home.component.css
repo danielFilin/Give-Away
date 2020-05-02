@@ -1,0 +1,22 @@
+.item-select {
+  background-color: rgb(248, 245, 245);
+  height: 25%;
+  width: 20%;
+  border-radius: 0.5rem;
+  border: 2px solid rgb(16, 230, 16);
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  min-height: 13rem;
+  max-height: 13rem;
+}
+
+:hover div {
+  cursor: pointer;
+}
+
+.yellow {
+  background-color: lawngreen;
+}

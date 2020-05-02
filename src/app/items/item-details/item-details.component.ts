@@ -24,12 +24,16 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe( (paramMap: ParamMap) => {
       const itemId = paramMap.get('itemId');
       this.itemsService.getSingleItem(itemId).subscribe( data => {
+        console.log(data);
         this.item = {
           _id: data.items._id,
           description: data.items.description,
+          category: data.items.category,
           imagePath: data.items.imagePath,
           title: data.items.title,
-          userId: data.items.userId
+          userId: data.items.userId,
+          giveAway: data.items.giveAway,
+          price: data.items.price
         };
         this.user = data.creator['name'];
       });
