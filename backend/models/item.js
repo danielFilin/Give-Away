@@ -23,6 +23,14 @@ const itemSchema = mongoose.Schema({
   category: {
     type: String,
     required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  giveAway: {
+    type: Boolean,
+    required: true
   }
 });
 

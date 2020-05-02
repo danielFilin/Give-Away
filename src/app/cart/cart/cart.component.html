@@ -1,12 +1,21 @@
-<button (click)='orderItems()' class="btn btn-primary ">Order now!</button>
-<div class="card" *ngFor = 'let item of cartItems'>
-  <div class="card-header">
-    Featured
+<h3 *ngIf='cartItems == undefined || cartItems.length <= 0; else elseBlock'>No orders made yet!</h3>
+<ng-template #elseBlock>
+  <button (click)='orderItems()' class="btn btn-primary ">Order now!</button>
+  <div class="row" *ngFor = 'let item of cartItems'>
+    <div class="col">
+      <div class="card-body">
+        <h5 class="card-title">{{item.productId.title}}</h5>
+        <p class="card-text">{{item.productId.description}}</p>
+        <button (click)='onItemDelete(item._id)' class="btn btn-danger ">Remove from Cart</button>
+    </div>
+    </div>
+    <div class="col">
+      <div class="card-body">
+        <h6>Price: {{item.productId.price}}$</h6>
+       <img src="{{item.productId.imagePath}}" style='width: 7rem' alt="">
+    </div>
+    </div>
   </div>
-  <div class="card-body">
-    <h5 class="card-title col-sm-6">{{item.productId.title}}</h5>
-    <p class="card-text col-sm-6">{{item.productId.description}}</p>
-    <button (click)='onItemDelete(item._id)' class="btn btn-danger ">Remove from Cart</button>
-  </div>
-</div>
+</ng-template>
+
 

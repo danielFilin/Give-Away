@@ -4,13 +4,17 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
+<h2 class='text-center mb-3'>Manage your items!</h2>
 <h2 *ngIf='items.length <= 0'> No Items Added yet</h2>
-<div class="card" style="width: 18rem;" *ngFor='let item of items'>
-  <img class="card-img-top" [src]="item.imagePath" [alt]="item.title">
-  <div class="card-body">
-    <h5 class="card-title">{{item.title}}</h5>
-    <p class="card-text">{{item.description}}</p>
-    <a routerLink="/edit/{{item._id}}" class="btn btn-primary mr-3" >Edit</a>
-    <a (click)='deleteItem(item._id)' class="btn btn-danger">Delete</a>
+<div class="row">
+  <div class="card col-sm-4 border-0" style="width: 18rem;" *ngFor='let item of items'>
+    <img class="card-img-top" [src]="item.imagePath" style="max-height: 12rem;" [alt]="item.title">
+    <div class="card-body">
+      <h5 class="card-title">{{item.title}}</h5>
+      <p class="card-text">{{item.description}}</p>
+      <a routerLink="/edit/{{item._id}}" class="btn btn-primary mr-3" >Edit</a>
+      <a (click)='deleteItem(item._id)' class="btn btn-danger">Delete</a>
+    </div>
   </div>
 </div>
+

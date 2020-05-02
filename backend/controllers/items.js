@@ -66,14 +66,10 @@ exports.getAllItems = async (req, res) => {
     //   itemsQuery.skip(pageSize * (currentPage-1))
     //   .limit(pageSize).find({_id: req.user.id});
     // }
-    console.log(req.query.category)
-    const category = req.query.category;
-    console.log(category == 'null')
     if (req.query.category !== 'null') {
       itemsQuery = Item.find({category: req.query.category});;
     }
     const items = await itemsQuery;
-    console.log(items);
     //.populate('userId');
     //.select('title')
     res.status(200).json({
@@ -117,6 +113,7 @@ exports.editItem = async (req, res, next) => {
       _id: req.params.id,
       imagePath: imagePath,
       userId: req.body.userId,
+      giveAway: req.body.giveAway,
       category: req.body.category
     })
     const updateResult = await Item.updateOne({_id: req.params.id, userId: req.userData.userId}, item);
@@ -138,12 +135,20 @@ exports.editItem = async (req, res, next) => {
 
 exports.addItem = async (req, res, next) => {
   try {
+
     const url = req.protocol + '://' + req.get('host');
+    itemPrice = req.body.price;
+    if (itemPrice == 'null') {
+      itemPrice = 0;
+    }
+    console.log(req.body);
     const item = new Item({
       title: req.body.title,
       description: req.body.description,
       userId: req.userData.userId,
       category: req.body.category,
+      price: itemPrice,
+      giveAway: req.body.giveAway,
       imagePath: url + '/images/' + req.file.filename
     })
     const addedItem = await item.save();

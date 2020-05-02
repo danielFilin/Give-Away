@@ -23,19 +23,22 @@ export class ItemsService {
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
 
   addItem(newItem) {
+    console.log(newItem);
     const itemData = new FormData();
     itemData.append('title', newItem.title);
     itemData.append('category', newItem.category);
     itemData.append('description', newItem.description);
+    itemData.append('giveAway', newItem.giveAway);
     itemData.append('image', newItem.imagePath, newItem.title);
     itemData.append('_id', null);
+    itemData.append('price', newItem.price);
     itemData.append('userId', null);
-
+    console.log(itemData);
     this.http.post<{message: string, item: Item}>(BACKEND_URL + 'post-items', itemData)
     .subscribe((responseData) => {
       this.items.push(responseData.item);
       this.UpdatedItems.next([...this.items]);
-      this.router.navigate(['/item-list']);
+      this.router.navigate(['/my-items']);
     });
   }
 
@@ -90,6 +93,8 @@ export class ItemsService {
       itemData.append('category', item.category);
       itemData.append('description', item.description);
       itemData.append('userId', item.userId);
+      itemData.append('price', item.price);
+      itemData.append('giveAway', item.giveAway);
       itemData.append('image', item.imagePath, item.title);
     } else {
       itemData = item;

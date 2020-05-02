@@ -8,12 +8,12 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/item-list" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['is-active']">Item List</a>
       </li>
-      <li class="nav-item" *ngIf='isUserAuthenticated'>
+      <!-- <li class="nav-item" *ngIf='isUserAuthenticated'>
         <a class="nav-link"  routerLink="/cart" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['is-active']">Cart</a>
-      </li>
-      <li class="nav-item" *ngIf='isUserAuthenticated'>
+      </li> -->
+      <!-- <li class="nav-item" *ngIf='isUserAuthenticated'>
         <a class="nav-link"  routerLink="/orders" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['is-active']">Orders</a>
-      </li>
+      </li> -->
     </ul>
     <ul class="navbar-nav ml-auto">
       <div class="dropdown" *ngIf='isUserAuthenticated'>
@@ -23,6 +23,8 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" routerLink="/my-items">My Items</a>
           <a class="dropdown-item" href="/my-favorites">My Favorites</a>
+          <a class="dropdown-item" href="/cart">My Cart</a>
+          <a class="dropdown-item" href="/orders">My Orders</a>
           <a class="dropdown-item" href="/item-create">Add new Item</a>
         </div>
       </div>
