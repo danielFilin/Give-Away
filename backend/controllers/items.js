@@ -66,9 +66,19 @@ exports.getAllItems = async (req, res) => {
     //   itemsQuery.skip(pageSize * (currentPage-1))
     //   .limit(pageSize).find({_id: req.user.id});
     // }
+
+    const queryParam = req.query.category;
+    const categories = ['toys', 'books', 'furniture', 'other'];
     if (req.query.category !== 'null') {
-      itemsQuery = Item.find({category: req.query.category});;
+      if (categories.includes(queryParam)) {
+        itemsQuery = Item.find({category: req.query.category});;
+      } else {
+        var query = {$or:[{title:{$regex: queryParam, $options: 'i'}},{description:{$regex: queryParam, $options: 'i'}}]}
+        itemsQuery = Item.find(query);
+        //itemsQuery = Item.find({title: new RegExp(queryParam.toString(), 'i')});
+      }
     }
+
     const items = await itemsQuery;
     //.populate('userId');
     //.select('title')
@@ -80,22 +90,6 @@ exports.getAllItems = async (req, res) => {
     console.log(err);
   }
 }
-
-// exports.getItemsByCategory = async (req, res) => {
-//   try {
-//     console.log(req.params.category);
-//     const items = await Item.find({category: req.params.category});;
-//     //.populate('userId');
-//     //.select('title')
-//     console.log(items);
-//     res.status(200).json({
-//       message: 'items fetched',
-//       items: items
-//     })
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
 
 
 exports.editItem = async (req, res, next) => {

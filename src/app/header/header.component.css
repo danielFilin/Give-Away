@@ -5,3 +5,7 @@
 :hover .navigation-link {
   color: black;
 }
+
+#header {
+  background-color: #791497 !important;
+}

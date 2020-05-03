@@ -12,6 +12,8 @@
     <h2>Category: {{item?.category}}</h2>
         <h3>{{item?.title}}</h3>
       <p class="font-weight-normal">description: {{item?.description}}</p>
+      <h6 class="card-text" *ngIf='!item?.price; else elseBlock'>Free of charge</h6>
+      <ng-template #elseBlock>Price: {{item?.price}}$</ng-template>
       <p class="font-weight-normal">by <a><strong>{{user}}</strong></a> created at:</p>
       <button (click)='addToCart($event, item._id)' class="btn btn-success mr-3">
         <span *ngIf='isUpdating && btnValue == "Add to Cart"' class="spinner-border spinner-border-sm" role="status" aria-hidden="true">

@@ -11,6 +11,8 @@
       <a routerLink="/item-details/{{item._id}}" class="btn btn-info mb-1">Details</a>
       <img class="card-img-top" style="max-height: 12rem;" [src]="item.imagePath" [alt]="item.title">
       <div class="card-body">
+        <h6 class="card-text" *ngIf='!item.price; else elseBlock'>Free of charge</h6>
+        <ng-template #elseBlock>Price: {{item.price}}$</ng-template>
         <p class="card-text">{{item.description}}</p>
       </div>
     </div>

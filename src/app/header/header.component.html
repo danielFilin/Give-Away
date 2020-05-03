@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar navbar-dark bg-primary">
+<nav class="navbar navbar-expand-sm navbar navbar-dark bg-primary" id='header'>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -8,12 +8,6 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/item-list" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['is-active']">Item List</a>
       </li>
-      <!-- <li class="nav-item" *ngIf='isUserAuthenticated'>
-        <a class="nav-link"  routerLink="/cart" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['is-active']">Cart</a>
-      </li> -->
-      <!-- <li class="nav-item" *ngIf='isUserAuthenticated'>
-        <a class="nav-link"  routerLink="/orders" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['is-active']">Orders</a>
-      </li> -->
     </ul>
     <ul class="navbar-nav ml-auto">
       <div class="dropdown" *ngIf='isUserAuthenticated'>
