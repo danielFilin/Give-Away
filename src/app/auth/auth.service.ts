@@ -163,9 +163,7 @@ export class AuthService {
       this.router.navigate(['/auth/login']);
     }, error => {
       console.log(error);
-      // this.authStatusListener.next(false);
       this.router.navigate(['/auth/login']);
-      // this.errorDataListener.next(error.error.message);
     });
   }
 

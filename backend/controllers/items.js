@@ -57,9 +57,6 @@ exports.getItemById = async (req, res, next) => {
 exports.getAllItems = async (req, res) => {
   try {
     let itemsQuery = Item.find();
-    // if (+req.query.user) {
-    //   itemsQuery = Item.find({userId: req.user.id});
-    // }
 
     const queryParam = req.query.category;
     const categories = ['toys', 'books', 'furniture', 'other'];
@@ -85,10 +82,6 @@ exports.getAllItems = async (req, res) => {
     } else {
       items = await itemsQuery;
     }
-
-
-    //itemsQuery;
-
 
     //.populate('userId');
     //.select('title')

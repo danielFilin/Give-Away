@@ -15,14 +15,17 @@
       <h6 class="card-text" *ngIf='!item?.price; else elseBlock'>Free of charge</h6>
       <ng-template #elseBlock>Price: {{item?.price}}$</ng-template>
       <p class="font-weight-normal">by <a><strong>{{user}}</strong></a> created at:</p>
-      <button (click)='addToCart($event, item._id)' class="btn btn-success mr-3">
-        <span *ngIf='isUpdating && btnValue == "Add to Cart"' class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
-        </span>
-        {{isUpdating && btnValue == "Add to Cart"? 'Loading': 'Add to Cart'}}
-      </button>
-      <button class="btn btn-primary" (click)='addToFavorites($event, item._id)'>
-        <span *ngIf='isUpdating && btnValue == "Add to Favorites"' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        {{isUpdating && btnValue == "Add to Favorites"? 'Loading': 'Add to Favorites'}}</button>
+      <div *ngIf='!isAuthenticated; else authenticated' class='info-message'>You need to login in order to perform actions on the products</div>
+      <ng-template #authenticated>
+        <button (click)='addToCart($event, item._id)' class="btn btn-success mr-3">
+          <span *ngIf='isUpdating && btnValue == "Add to Cart"' class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+          </span>
+          {{isUpdating && btnValue == "Add to Cart"? 'Loading': 'Add to Cart'}}
+        </button>
+        <button class="btn btn-primary" (click)='addToFavorites($event, item._id)'>
+          <span *ngIf='isUpdating && btnValue == "Add to Favorites"' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          {{isUpdating && btnValue == "Add to Favorites"? 'Loading': 'Add to Favorites'}}</button>
+      </ng-template>
       <p class="lead ">
         <a class="btn btn-primary back-navigation mt-5" routerLink="/item-list">Go back to items list</a>
       </p>

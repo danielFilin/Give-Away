@@ -8,9 +8,7 @@ const router = express.Router();
 
 router.get('/items/:id', itemsController.getItemById);
 
-router.get('/items', checkAuth, itemsController.getAllItems);
-
-// router.get('/items-category/:category', checkAuth, itemsController.getItemsByCategory);
+router.get('/items', itemsController.getAllItems);
 
 router.post('/edit/:id', checkAuth, extractFile, itemsController.editItem);
 

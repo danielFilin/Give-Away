@@ -3,6 +3,7 @@ import { ItemsService } from '../items.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Item } from 'src/app/models/item.model';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-item-details',
@@ -16,15 +17,15 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   favoritesSubscription: Subscription;
   cartUpdateSubscription: Subscription;
   btnValue: string;
+  isAuthenticated = false;
 
 
-  constructor(private itemsService: ItemsService, private route: ActivatedRoute) { }
+  constructor(private itemsService: ItemsService, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe( (paramMap: ParamMap) => {
       const itemId = paramMap.get('itemId');
       this.itemsService.getSingleItem(itemId).subscribe( data => {
-        console.log(data);
         this.item = {
           _id: data.items._id,
           description: data.items.description,
@@ -47,6 +48,8 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       this.isUpdating = false;
       this.btnValue = '';
     });
+
+    this.isAuthenticated = this.authService.getIsAuthenticated();
   }
 
   addToCart(event, itemId) {
@@ -63,5 +66,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.favoritesSubscription.unsubscribe();
+    this.cartUpdateSubscription.unsubscribe();
   }
 }
