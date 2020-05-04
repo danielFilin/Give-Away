@@ -18,8 +18,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   isLoading = true;
   userId: string;
   isAuthenticated = false;
-  totalItems = 10;
-  postsPerPage = 3;
+  postsPerPage = 10;
   currentPage = 1;
 
   constructor(public itemsService: ItemsService, private authService: AuthService, private activatedRoute: ActivatedRoute) { }

@@ -60,26 +60,36 @@ exports.getAllItems = async (req, res) => {
     // if (+req.query.user) {
     //   itemsQuery = Item.find({userId: req.user.id});
     // }
-    // const pageSize = +req.query.pagesize;
-    // const currentPage = +req.query.page;
-    // if(pageSize && currentPage) {
-    //   itemsQuery.skip(pageSize * (currentPage-1))
-    //   .limit(pageSize).find({_id: req.user.id});
-    // }
 
     const queryParam = req.query.category;
     const categories = ['toys', 'books', 'furniture', 'other'];
     if (req.query.category !== 'null') {
       if (categories.includes(queryParam)) {
-        itemsQuery = Item.find({category: req.query.category});;
+        itemsQuery = Item.find({category: req.query.category});
       } else {
         var query = {$or:[{title:{$regex: queryParam, $options: 'i'}},{description:{$regex: queryParam, $options: 'i'}}]}
         itemsQuery = Item.find(query);
-        //itemsQuery = Item.find({title: new RegExp(queryParam.toString(), 'i')});
       }
     }
 
-    const items = await itemsQuery;
+    const pageSize = +req.query.pagesize;
+    const currentPage = +req.query.page;
+
+    console.log('pageSize: ', pageSize);
+    console.log('currentPage: ', currentPage);
+    let items;
+    if(pageSize && currentPage) {
+      items = await itemsQuery.skip(pageSize * (currentPage-1))
+      .limit(pageSize);
+      console.log(items);
+    } else {
+      items = await itemsQuery;
+    }
+
+
+    //itemsQuery;
+
+
     //.populate('userId');
     //.select('title')
     res.status(200).json({
@@ -99,7 +109,7 @@ exports.editItem = async (req, res, next) => {
     if (!req.file) {
       imagePath = req.body.imagePath;
     } else {
-      imagePath = url + '/images/' + req.file.filename
+      imagePath = url + 'images/' + req.file.filename
     }
     const item = new Item({
       title: req.body.title,
@@ -143,7 +153,7 @@ exports.addItem = async (req, res, next) => {
       category: req.body.category,
       price: itemPrice,
       giveAway: req.body.giveAway,
-      imagePath: url + '/images/' + req.file.filename
+      imagePath: url + 'images/' + req.file.filename
     })
     const addedItem = await item.save();
     res.status(200).json({

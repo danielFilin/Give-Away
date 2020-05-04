@@ -6,9 +6,9 @@
     </div>
   </div>
   <div class="row">
-    <div class="card col-sm-4" style="width: 14rem;" *ngFor='let item of items'>
-      <h5 class="card-title text-center">{{item.title}}</h5>
-      <a routerLink="/item-details/{{item._id}}" class="btn btn-info mb-1">Details</a>
+    <div class="card col-lg-4 mt-3 col-md-6 col-xs-12" style="width: 14rem;" *ngFor='let item of items'>
+      <h5 class="card-title text-center item-title">{{item.title}}</h5>
+      <a routerLink="/item-details/{{item._id}}" class="btn btn-info mb-1 details-btn">Details</a>
       <img class="card-img-top" style="max-height: 12rem;" [src]="item.imagePath" [alt]="item.title">
       <div class="card-body">
         <h6 class="card-text" *ngIf='!item.price; else elseBlock'>Free of charge</h6>

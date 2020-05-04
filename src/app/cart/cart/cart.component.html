@@ -1,6 +1,5 @@
 <h3 *ngIf='cartItems == undefined || cartItems.length <= 0; else elseBlock'>No orders made yet!</h3>
 <ng-template #elseBlock>
-  <button (click)='orderItems()' class="btn btn-primary ">Order now!</button>
   <div class="row" *ngFor = 'let item of cartItems'>
     <div class="col">
       <div class="card-body">
@@ -16,6 +15,7 @@
     </div>
     </div>
   </div>
+  <button (click)='orderItems()' class="btn btn-primary btn-lg">Order now</button>
 </ng-template>
 
 
