@@ -17,7 +17,7 @@ export class MyItemsComponent implements OnInit {
   constructor(private itemsService: ItemsService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.itemsService.getItems(25, 1, null, 1);
+    this.itemsService.getItems(25, 1, null, 1, 0);
     this.userId = this.authService.getUserId();
     this.itemsSubscription = this.itemsService.getItemsUpdateListener().subscribe((items: Item[]) => {
       const itemsCreatedByCurrentUser = items.filter( (item) => {

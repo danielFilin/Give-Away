@@ -17,6 +17,8 @@ import { AuthModule } from './auth/auth.module';
 import { PersonalRoutingModule } from './personal-zone/my-items/personal-routing.module';
 import { PersonalModule } from './personal-zone/my-items/personal.module';
 import { MyFavoritesComponent } from './personal-zone/my-favorites/my-favorites.component';
+import { CategoryCreateComponent } from './admin/category-create/category-create.component';
+import { CategoriesListComponent } from './admin/categories-list/categories-list.component';
 
 
 
@@ -28,6 +30,8 @@ import { MyFavoritesComponent } from './personal-zone/my-favorites/my-favorites.
     PageNotFoundComponent,
     OrdersComponent,
     MyFavoritesComponent,
+    CategoryCreateComponent,
+    CategoriesListComponent,
   ],
   imports: [
     BrowserModule,

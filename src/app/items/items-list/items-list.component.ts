@@ -25,7 +25,8 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const category = this.activatedRoute.snapshot.paramMap.get('category');
-    this.itemsService.getItems(this.postsPerPage, this.currentPage, category, 0);
+    const price = +this.activatedRoute.snapshot.paramMap.get('price');
+    this.itemsService.getItems(this.postsPerPage, this.currentPage, category, 0, price);
     this.userId = this.authService.getUserId();
     this.itemsSubscription = this.itemsService.getItemsUpdateListener().subscribe((items: Item[]) => {
       if (items !== undefined) {

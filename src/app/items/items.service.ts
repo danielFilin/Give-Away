@@ -23,8 +23,8 @@ export class ItemsService {
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
 
   addItem(newItem) {
-    console.log(newItem);
     const itemData = new FormData();
+    console.log(newItem.imagePath);
     itemData.append('title', newItem.title);
     itemData.append('category', newItem.category);
     itemData.append('description', newItem.description);
@@ -33,7 +33,6 @@ export class ItemsService {
     itemData.append('_id', null);
     itemData.append('price', newItem.price);
     itemData.append('userId', null);
-    console.log(itemData);
     this.http.post<{message: string, item: Item}>(BACKEND_URL + 'post-items', itemData)
     .subscribe((responseData) => {
       this.items.push(responseData.item);
@@ -66,8 +65,8 @@ export class ItemsService {
     return this.updatedFavorites.asObservable();
   }
 
-  getItems(postsPerPage: number, currentPage: number, category: string, user: number) {
-    const queryParams = `?category=${category}&pagesize=${postsPerPage}&page=${currentPage}&user=${user}`;
+  getItems(postsPerPage: number, currentPage: number, category: string, user: number, price: number) {
+    const queryParams = `?category=${category}&price=${price}&pagesize=${postsPerPage}&page=${currentPage}&user=${user}`;
     this.http.get<{message: string, items: Item[]}>(BACKEND_URL + `items${queryParams}`)
     .subscribe((itemData) => {
       this.items = itemData.items;
@@ -75,15 +74,15 @@ export class ItemsService {
     });
   }
 
-  getItemsByCategory(category) {
-    const queryParams = category;
-    this.http.get<{message: string, items: Item[]}>(BACKEND_URL + `items-category/${queryParams}`)
-    .subscribe((itemData) => {
-      this.items = itemData.items;
-      this.UpdatedItems.next([...this.items]);
-      // this.router.navigate(['/item-list']);
-    });
-  }
+  // getItemsByCategory(category, price) {
+  //   const queryParams = category;
+  //   this.http.get<{message: string, items: Item[]}>(BACKEND_URL + `items-category/${queryParams}`)
+  //   .subscribe((itemData) => {
+  //     this.items = itemData.items;
+  //     this.UpdatedItems.next([...this.items]);
+  //     // this.router.navigate(['/item-list']);
+  //   });
+  // }
 
   editItem(item) {
     let itemData;

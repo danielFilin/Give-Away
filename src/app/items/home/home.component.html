@@ -1,25 +1,23 @@
 <h2 class='text-center'>Choose a category or simply search what you want!</h2>
 <div class="main">
 
-  <!-- Actual search box -->
-  <!-- <div class="form-group has-search">
-    <span class="fa fa-search form-control-feedback"></span>
-    <input type="text" class="form-control" placeholder="Search">
-  </div> -->
-
-  <!-- Another variation with a button -->
   <div class="input-group">
     <input type="text" class="form-control" placeholder="Find what you want" #search>
     <div class="input-group-append">
-      <button class="btn btn-secondary" type="button" (click)='searchItems(search)'>
+      <button class="btn btn-secondary mr-3" type="button" (click)='searchItems(search)'>
         <i class="fa fa-search"></i>
       </button>
+      <label class="checkbox-inline" ><input type="checkbox" (change)='isChecked()'>Show only Free Items</label>
     </div>
   </div>
 
 </div>
-<div class="row mb-5 mt-3">
-  <div class="col-sm m-3 item-select text-center" routerLink="/item-list">
+<div class="row" >
+    <div *ngFor = 'let category of categoriesEqual; i as index' class="col-sm m-3 item-select text-center" [routerLink]="category.routerLink" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
+    <h4>{{category.name}}</h4>
+    <img [src]="category.imagePath" [alt]="category.name">
+  </div>
+  <!-- <div class="col-sm m-3 item-select text-center" routerLink="/item-list">
     <h4>Show All Items</h4>
     <img src="https://farm1.staticflickr.com/228/476649810_1a0935f6f7_b.jpg" alt="">
   </div>
@@ -30,17 +28,28 @@
   <div class="col-sm m-3 item-select text-center" routerLink="/item-list/furniture">
     <h4>Furniture</h4>
     <img src="https://section.kinglivingcomau.testarc.com.au/pub/media/wysiwyg/collection/r2-sofas.jpg" alt="">
+  </div> -->
+</div>
+<div class="row item-center-parent">
+  <div class="col-sm-4 m-3 item-center text-center" routerLink="/item-list" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
+    <h4>Show All Items</h4>
+    <img src="https://farm1.staticflickr.com/228/476649810_1a0935f6f7_b.jpg" alt="">
   </div>
 </div>
 <div class="row">
-  <div class="col-sm m-1 mr-5 ml-5 item-select text-center" routerLink="/item-list/toys">
+  <div  *ngFor = 'let category of categoriesUnequal; i as index' class="col-sm m-1 m-3 item-select text-center" [routerLink]="category.routerLink" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
+    <h4>{{category.name}}</h4>
+    <img [src]="category.imagePath" [alt]="category.name">
+  </div>
+  <!-- <div class="col-sm m-1 mr-5 ml-5 item-select text-center" routerLink="/item-list/toys">
     <h4>Toys</h4>
+
     <img src="https://www.listchallenges.com/f/lists/f3e20497-3e10-457e-aef4-73f8436cc429.jpg" alt="">
   </div>
   <div class="col-sm m-1 mr-5 ml-5 item-select text-center" routerLink="/item-list/other">
     <h4>Other</h4>
     <img src="https://c7.uihere.com/files/480/256/975/books-smartphone-black-mobile-phone-thumb.jpg" alt="">
-  </div>
+  </div> -->
 </div>
 
 

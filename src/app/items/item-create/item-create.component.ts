@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Item } from '../../models/item.model';
 import { ItemsService } from '../items.service';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { mimeType} from './mime-type.validator';
 
 @Component({
@@ -18,10 +18,9 @@ export class ItemCreateComponent implements OnInit {
   showPrice = false;
 
 
-  constructor(private itemsService: ItemsService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private itemsService: ItemsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
     this.itemCreateForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
       description: new FormControl(null, Validators.required),
@@ -79,7 +78,6 @@ export class ItemCreateComponent implements OnInit {
 }
 
   onSaveItem() {
-
     if (this.itemCreateForm.invalid) {
     return;
     }
@@ -97,7 +95,6 @@ export class ItemCreateComponent implements OnInit {
       };
       this.itemsService.addItem(item);
     } else {
-      console.log(this.itemCreateForm.value.image);
       const item: Item = {
         title: this.itemCreateForm.value.title,
         description: this.itemCreateForm.value.description,

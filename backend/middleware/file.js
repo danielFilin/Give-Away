@@ -5,7 +5,6 @@ const MIME_TYPE_MAP = {
   'image/jpeg': 'jpg',
   'image/jpg': 'jpg'
 }
-
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
       const isValid = MIME_TYPE_MAP[file.mimetype];
@@ -13,7 +12,7 @@ const fileStorage = multer.diskStorage({
       if (isValid) {
         error = null;
       }
-      cb(null, 'images');
+      cb(null, 'backend/images');
     },
       filename: (req, file, cb) => {
       const name = file.originalname.toLowerCase().split(' ').join('-');

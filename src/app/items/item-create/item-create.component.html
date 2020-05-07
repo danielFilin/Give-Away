@@ -42,12 +42,10 @@
       class="browser-default custom-select"
       placeholder="Insert item name"
       formControlName="category">
-      <!-- <option selected>Open this select menu</option> -->
       <option value="furniture">Furniture</option>
       <option value="toys">Toys</option>
       <option value="books">Books</option>
       <option value="other">Other</option>
-
     </select>
     <span class='text-danger' *ngIf='itemCreateForm.controls.category.invalid && itemCreateForm.controls.category.touched'>This field cannot be left empty!</span>
     <span class='text-danger' *ngIf='itemCreateForm.controls.description.invalid && itemCreateForm.controls.description.touched'>You must add a description</span>
@@ -60,14 +58,7 @@
     <div class='image-preview' *ngIf='imagePreview !== "" && imagePreview && itemCreateForm.get("image").valid'>
       <img [src]="imagePreview" [alt]="itemCreateForm.value.title">
     </div>
-      <!-- <input
-        name='image'
-        type="file"
-        class="form-control-file"
-        formControlName="image"
-        > -->
-
-    <small class="form-text text-muted">Please enter the title of your item</small>
+    <h6 *ngIf="!itemCreateForm.valid && itemCreateForm.touched" class="help-block wrong-input">You must fill in the form correctly</h6>
     <button type='submit' class="btn btn-primary mt-3" >Add to collection</button>
   </form>
   </div>

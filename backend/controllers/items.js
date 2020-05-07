@@ -71,17 +71,16 @@ exports.getAllItems = async (req, res) => {
 
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
-
-    console.log('pageSize: ', pageSize);
-    console.log('currentPage: ', currentPage);
+    const isFree = +req.query.price;
     let items;
-    if(pageSize && currentPage) {
-      items = await itemsQuery.skip(pageSize * (currentPage-1))
-      .limit(pageSize);
-      console.log(items);
-    } else {
-      items = await itemsQuery;
-    }
+
+      if (isFree) {
+        items = await itemsQuery.skip(pageSize * (currentPage-1)).where('price').equals(0)
+        .limit(pageSize);
+      } else {
+        items = await itemsQuery.skip(pageSize * (currentPage-1)).where('price').gt(-1)
+        .limit(pageSize);
+      }
 
     //.populate('userId');
     //.select('title')
@@ -102,7 +101,7 @@ exports.editItem = async (req, res, next) => {
     if (!req.file) {
       imagePath = req.body.imagePath;
     } else {
-      imagePath = url + 'images/' + req.file.filename
+      imagePath = url + '/images/' + req.file.filename
     }
     const item = new Item({
       title: req.body.title,
@@ -132,13 +131,11 @@ exports.editItem = async (req, res, next) => {
 
 exports.addItem = async (req, res, next) => {
   try {
-
     const url = req.protocol + '://' + req.get('host');
     itemPrice = req.body.price;
     if (itemPrice == 'null') {
       itemPrice = 0;
     }
-    console.log(req.body);
     const item = new Item({
       title: req.body.title,
       description: req.body.description,
@@ -146,7 +143,7 @@ exports.addItem = async (req, res, next) => {
       category: req.body.category,
       price: itemPrice,
       giveAway: req.body.giveAway,
-      imagePath: url + 'images/' + req.file.filename
+      imagePath: url + '/images/' + req.file.filename
     })
     const addedItem = await item.save();
     res.status(200).json({

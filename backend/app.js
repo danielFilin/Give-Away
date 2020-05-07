@@ -5,7 +5,8 @@ const path = require('path');
 
 const ItemRoutes = require('./routes/items');
 const AuthRoutes = require('./routes/users');
-const multer = require('multer');
+const adminRoutes = require('./routes/admin');
+// const multer = require('multer');
 
 
 mongoose.set('useNewUrlParser', true);
@@ -24,7 +25,7 @@ mongoose.connect(`mongodb+srv://filind:${process.env.MONGO_ATLAS_PW}@cluster0-8z
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use('/images', express.static(path.join('images')));
+app.use('/images', express.static(path.join('backend/images')));
 
 app.use( (req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -37,5 +38,6 @@ app.use( (req, res, next) => {
 
 app.use('', ItemRoutes);
 app.use('', AuthRoutes);
+app.use('', adminRoutes);
 
 module.exports = app;
