@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MyItemsComponent } from './my-items.component';
 import { AuthGuard } from 'src/app/auth/auth.guard';
-import { PageNotFoundComponent } from 'src/app/error/page-not-found/page-not-found.component';
 import { MyFavoritesComponent } from '../my-favorites/my-favorites.component';
+import { PageNotFoundComponent } from 'src/app/error/page-not-found/page-not-found.component';
 
 
 const routes: Routes = [

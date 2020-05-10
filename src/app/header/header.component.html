@@ -20,6 +20,13 @@
           <a class="dropdown-item" href="/cart">My Cart</a>
           <a class="dropdown-item" href="/orders">My Orders</a>
           <a class="dropdown-item" href="/item-create">Add new Item</a>
+        </div>
+      </div>
+      <div class="dropdown" *ngIf='isUserAdmin'>
+        <button class="btn btn-secondary dropdown-toggle mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Manage
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href="/admin/category-create">Create New Category</a>
           <a class="dropdown-item" href="/admin/categories-list">Manage Categories</a>
         </div>

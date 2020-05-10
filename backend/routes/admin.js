@@ -1,19 +1,20 @@
 const express = require('express');
 
 const checkAuth = require('../middleware/check-auth');
+const checkAdmin = require('../middleware/check-admin');
 const extractFile = require('../middleware/file');
 const adminController = require('../controllers/admin');
 
 const router = express.Router();
 
-router.post('/admin/post-categories', checkAuth, extractFile, adminController.addCategory);
+router.post('/admin/post-categories', checkAuth, checkAdmin, extractFile, adminController.addCategory);
 
 router.get('/admin/post-categories', checkAuth, adminController.getCategories);
 
-router.get('/admin/categories/:id', checkAuth, adminController.getOneCategory);
+router.get('/admin/categories/:id', checkAuth, checkAdmin, adminController.getOneCategory);
 
-router.delete('/admin/delete-category/:id', checkAuth, adminController.deleteCategory);
+router.delete('/admin/delete-category/:id', checkAuth, checkAdmin, adminController.deleteCategory);
 
-router.put('/admin/edit-category/:id', checkAuth, extractFile, adminController.editCategory);
+router.put('/admin/edit-category/:id', checkAuth, checkAdmin, extractFile, adminController.editCategory);
 
 module.exports = router;

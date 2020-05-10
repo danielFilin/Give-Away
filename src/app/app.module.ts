@@ -1,24 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth/auth-routing.module';
-import { CartComponent } from './cart/cart/cart.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
-import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
-import { OrdersComponent } from './cart/orders/orders.component';
 import { ItemsModule } from './items/items.module';
 import { AuthModule } from './auth/auth.module';
 import { PersonalRoutingModule } from './personal-zone/my-items/personal-routing.module';
 import { PersonalModule } from './personal-zone/my-items/personal.module';
-import { MyFavoritesComponent } from './personal-zone/my-favorites/my-favorites.component';
-import { CategoryCreateComponent } from './admin/category-create/category-create.component';
-import { CategoriesListComponent } from './admin/categories-list/categories-list.component';
+import { AdminRoutingModule } from './admin/admin-routing.module';
+import { AdminModule } from './admin/admin.module';
+import { OrdersRoutingModule } from './cart/orders-routing.module';
+import { CartModule } from './cart/cart.module';
 
 
 
@@ -26,12 +23,6 @@ import { CategoriesListComponent } from './admin/categories-list/categories-list
   declarations: [
     AppComponent,
     HeaderComponent,
-    CartComponent,
-    PageNotFoundComponent,
-    OrdersComponent,
-    MyFavoritesComponent,
-    CategoryCreateComponent,
-    CategoriesListComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,11 +31,14 @@ import { CategoriesListComponent } from './admin/categories-list/categories-list
     ReactiveFormsModule,
     HttpClientModule,
     AuthRoutingModule,
+    AdminRoutingModule,
+    OrdersRoutingModule,
     PersonalRoutingModule,
     ItemsModule,
     AuthModule,
-    PersonalModule
-
+    AdminModule,
+    PersonalModule,
+    CartModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

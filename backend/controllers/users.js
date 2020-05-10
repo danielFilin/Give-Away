@@ -61,11 +61,16 @@ exports.login = async(req, res) => {
     // provide the user ID of the currently loged in user to the req object
     const activeUser = await User.findById(logedUser._id)
     req.user = activeUser;
+    let isAdmin = false;
+    if (req.user.admin) {
+      isAdmin = true;
+    }
     res.status(200).json({
       message: 'user logged in successefully',
       token: token,
       expiresIn: 3600,
-      userId: activeUser._id
+      userId: activeUser._id,
+      admin: isAdmin
     })
   } catch (err) {
     res.status(401).json({

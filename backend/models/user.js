@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema({
   },
   favorites: {
     items: [{ type: Schema.Types.ObjectId, ref: 'Item', required: true}]
+  },
+  admin: {
+    type: Boolean,
+    required: false
   }
 });
 

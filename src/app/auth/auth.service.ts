@@ -14,9 +14,11 @@ const BACKEND_URL = environment.apiUrl;
 export class AuthService {
   private token: string;
   isAuthenticated = false;
+  isAdmin = false;
   private tokenTimer: any;
   private userId: string;
   private authStatusListener = new Subject<boolean>();
+  private adminStatusListener = new Subject<boolean>();
   private authUserCredentials = new Subject<{userId: string, passwordToken: string}>();
   private errorDataListener = new Subject<string>();
   constructor(private http: HttpClient, private router: Router) { }
@@ -33,12 +35,20 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
+  getIsAdmin() {
+    return this.isAdmin;
+  }
+
   getCredentialsListener() {
     return this.authUserCredentials.asObservable();
   }
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
+  }
+
+  getAdminStatusListener() {
+    return this.adminStatusListener.asObservable();
   }
 
   getErrorDataListener() {
@@ -61,7 +71,8 @@ export class AuthService {
       email,
       password
     };
-    this.http.post<{message: string, token: string, expiresIn: number, userId: string}>(BACKEND_URL + 'login', userCredentials)
+    this.http.post<{message: string, token: string, expiresIn: number, userId: string, admin: boolean}>(BACKEND_URL +
+    'login', userCredentials)
     .subscribe((responseData) => {
       this.token = responseData.token;
       if (this.token) {
@@ -72,8 +83,12 @@ export class AuthService {
         this.authStatusListener.next(true);
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-        this.saveAuthorizationData(this.token, expirationDate, this.userId);
+        this.saveAuthorizationData(this.token, expirationDate, this.userId, responseData.admin);
         this.router.navigate(['/home']);
+      }
+      if (responseData.admin) {
+        this.isAdmin = true;
+        this.adminStatusListener.next(true);
       }
     }, error => {
       this.authStatusListener.next(false);
@@ -92,14 +107,22 @@ export class AuthService {
       this.token = authInformation.token;
       this.isAuthenticated = true;
       this.userId = authInformation.userId;
-      this.setAuthTimer(expiresIn / 1000)
+      this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
+
+      if (authInformation.isAdmin) {
+        console.log(1);
+        this.isAdmin = true;
+        this.adminStatusListener.next(true);
+      }
     }
+
   }
 
   onUserLogout() {
     this.token = null;
     this.isAuthenticated = false;
+    this.isAdmin = false;
     clearTimeout(this.tokenTimer);
     this.userId = null;
     this.authStatusListener.next(false);
@@ -107,16 +130,23 @@ export class AuthService {
     this.clearAuthData();
   }
 
-  private saveAuthorizationData(token: string, expirationDate: Date, userId: string) {
+  private saveAuthorizationData(token: string, expirationDate: Date, userId: string, isAdmin: boolean) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
+    if (isAdmin) {
+      localStorage.setItem('isAdmin', 'true');
+    } else {
+      localStorage.setItem('isAdmin', 'false');
+    }
+
   }
 
   private clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
+    localStorage.removeItem('isAdmin');
   }
 
   private setAuthTimer(duration: number) {
@@ -130,13 +160,20 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const expirtationDate = localStorage.getItem('expiration');
     const userId = localStorage.getItem('userId');
+    const isAdmin = localStorage.getItem('isAdmin');
+
+    // if (isAdmin === 'true') {
+
+    // }
+    console.log(isAdmin);
     if (!token || !expirtationDate) {
       return;
     }
     return {
       token,
       expirationDate: new Date(expirtationDate),
-      userId
+      userId,
+      isAdmin
     };
   }
 

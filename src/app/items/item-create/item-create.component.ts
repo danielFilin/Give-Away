@@ -16,6 +16,7 @@ export class ItemCreateComponent implements OnInit {
   newItem: Item;
   imagePreview: string;
   showPrice = false;
+  submitButtonClicked = false;
 
 
   constructor(private itemsService: ItemsService, private route: ActivatedRoute) { }
@@ -79,7 +80,8 @@ export class ItemCreateComponent implements OnInit {
 
   onSaveItem() {
     if (this.itemCreateForm.invalid) {
-    return;
+      this.submitButtonClicked = true;
+      return;
     }
 
     if (!this.editMode) {

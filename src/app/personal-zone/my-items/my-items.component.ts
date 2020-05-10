@@ -26,11 +26,6 @@ export class MyItemsComponent implements OnInit {
       this.items = itemsCreatedByCurrentUser;
       this.isLoading = false;
     });
-    // this.isAuthenticated = this.authService.getIsAuthenticated();
-    // this.authSubscription = this.authService.getAuthStatusListener().subscribe((authStatus) => {
-    //   this.isAuthenticated = authStatus;
-    //   this.userId = this.authService.getUserId();
-    // });
   }
 
   deleteItem(itemId){

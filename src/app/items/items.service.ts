@@ -74,16 +74,6 @@ export class ItemsService {
     });
   }
 
-  // getItemsByCategory(category, price) {
-  //   const queryParams = category;
-  //   this.http.get<{message: string, items: Item[]}>(BACKEND_URL + `items-category/${queryParams}`)
-  //   .subscribe((itemData) => {
-  //     this.items = itemData.items;
-  //     this.UpdatedItems.next([...this.items]);
-  //     // this.router.navigate(['/item-list']);
-  //   });
-  // }
-
   editItem(item) {
     let itemData;
     if (typeof(item.imagePath) === 'object') {

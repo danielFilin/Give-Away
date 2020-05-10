@@ -18,7 +18,7 @@
         </label>
       </div>
       <div *ngIf='showPrice'>
-        <h6 for="book-name" >Price</h6>
+        <h6 for="book-name" >Price $</h6>
         <input
           name='price'
           type="number"
@@ -58,7 +58,7 @@
     <div class='image-preview' *ngIf='imagePreview !== "" && imagePreview && itemCreateForm.get("image").valid'>
       <img [src]="imagePreview" [alt]="itemCreateForm.value.title">
     </div>
-    <h6 *ngIf="!itemCreateForm.valid && itemCreateForm.touched" class="help-block wrong-input">You must fill in the form correctly</h6>
+    <h6 *ngIf="!itemCreateForm.valid && itemCreateForm.touched && submitButtonClicked" class="help-block wrong-input">You must fill in the form correctly</h6>
     <button type='submit' class="btn btn-primary mt-3" >Add to collection</button>
   </form>
   </div>
