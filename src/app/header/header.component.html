@@ -10,25 +10,31 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      <i class="fa cart" style="font-size:24px" routerLink="/cart">&#xf07a;<span class='items-number'> {{favoriteItemsNumber}} </span></i>
+
       <div class="dropdown" *ngIf='isUserAuthenticated'>
         <button class="btn btn-secondary dropdown-toggle mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Personal Zone
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" routerLink="/my-items">My Items</a>
-          <a class="dropdown-item" href="/my-favorites">My Favorites</a>
-          <a class="dropdown-item" href="/cart">My Cart</a>
-          <a class="dropdown-item" href="/orders">My Orders</a>
-          <a class="dropdown-item" href="/item-create">Add new Item</a>
+          <a class="dropdown-item" routerLink="/my-favorites">My Favorites</a>
+          <a class="dropdown-item" routerLink="/cart">My Cart</a>
+          <a class="dropdown-item" routerLink="/orders">My Orders</a>
+          <a class="dropdown-item" routerLink="/item-create">Add new Item</a>
         </div>
       </div>
-      <div class="dropdown" *ngIf='isUserAdmin'>
+      <!-- changed this so that everyone could see most of the app -->
+      <!-- <div class="dropdown" *ngIf='isUserAdmin && isUserAuthenticated'> -->
+        <div class="dropdown" *ngIf='isUserAuthenticated'>
         <button class="btn btn-secondary dropdown-toggle mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Manage
+          Admin Zone
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="/admin/category-create">Create New Category</a>
-          <a class="dropdown-item" href="/admin/categories-list">Manage Categories</a>
+          <a class="dropdown-item" routerLink="/admin/category-create">Create New Category</a>
+          <a class="dropdown-item" routerLink="/admin/categories-list">Manage Categories</a>
+          <a class="dropdown-item" routerLink="/admin/users-list">Manage Users</a>
+          <a class="dropdown-item" routerLink="/admin/items-list">Manage Items</a>
         </div>
       </div>
       <li class="nav-item" *ngIf='!isUserAuthenticated'>

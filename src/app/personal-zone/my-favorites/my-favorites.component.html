@@ -12,7 +12,7 @@
         <h6 class="card-text" *ngIf='!item?.price; else elseBlock'>Free of charge</h6>
         <ng-template #elseBlock>Price: {{item?.price}}$</ng-template>
         <div class="mt-auto">
-          <a button class="btn btn-primary mr-3">Add to cart</a>
+          <a button (click)='onAddToCart(item._id)' class="btn btn-primary mr-3">Add to cart</a>
           <a button (click)='onFavoriteRemove(item._id)' class="btn btn-danger">Remove from favorites</a>
         </div>
       </div>

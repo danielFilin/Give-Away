@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
+import { Item } from '../models/item.model';
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -13,11 +15,23 @@ const BACKEND_URL = environment.apiUrl;
 export class AdminService {
   private updatedCategories = new Subject<Category[]>();
   listOfCategories: Category[] = [];
+  users: User[] = [];
+  private updatedUsersList = new Subject<User[]>();
+  itemsList: Item[] = [];
+  private updatedItemsList = new Subject<Item[]>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
   getCategoriesUpdateListener() {
     return this.updatedCategories.asObservable();
+  }
+
+  getUpdatedUsersList() {
+    return this.updatedUsersList.asObservable();
+  }
+
+  getItemsList() {
+    return this.updatedItemsList.asObservable();
   }
 
   getCategories() {
@@ -71,4 +85,25 @@ export class AdminService {
     });
   }
 
+  getUsers() {
+    this.http.get<{message: string, users: User[]}>(BACKEND_URL + 'admin/get-users').subscribe( (userData) => {
+      this.users = userData.users;
+      this.updatedUsersList.next([...this.users]);
+    });
+  }
+
+  deleteUser(userId) {
+    this.http.delete<{message: string, userId: string}>(BACKEND_URL + `admin/delete-user/${userId}`).subscribe( (userData) => {
+      const updatedUsers = this.users.filter(user => user._id !== userData.userId);
+      this.users = [...updatedUsers];
+      this.updatedUsersList.next([...this.users]);
+    });
+  }
+
+  getAllItems() {
+    this.http.get<{message: string, items: Item[]}>(BACKEND_URL + 'admin/get-items').subscribe( (itemsData) => {
+      this.itemsList = itemsData.items;
+      this.updatedItemsList.next([...this.itemsList]);
+    });
+  }
 }

@@ -9,3 +9,17 @@
 #header {
   background-color: #791497 !important;
 }
+
+.cart {
+  color: #791497;
+  background-color: white;
+  border-radius: 8px;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.items-number {
+  color: red;
+  font-size: 0.9rem;
+  position: fixed;
+}

@@ -36,7 +36,7 @@ export class CategoryCreateComponent implements OnInit {
           this.categoryCreateForm.setValue({
             name: fetchedCategory.categoryList.name,
             image: fetchedCategory.categoryList.imagePath,
-            routerLink: 'try'
+            routerLink: fetchedCategory.categoryList.routerLink
           });
         });
       }

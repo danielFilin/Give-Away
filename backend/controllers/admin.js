@@ -1,4 +1,6 @@
 const Category = require('../models/category');
+const User = require('../models/user');
+const Item = require('../models/item');
 
 exports.addCategory = async (req, res) => {
  try {
@@ -99,6 +101,54 @@ exports.getCategories = async (req, res) => {
       res.status(404).json({
        err: err,
        message: 'category failed to delete'
+     })
+  }
+ }
+
+ exports.getUsers = async (req, res) => {
+  try {
+   const users = await User.find();
+   console.log(users);
+   res.status(200).json({
+     message: 'users were fetched',
+     users: users
+   })
+  } catch (err) {
+      res.status(404).json({
+       err: err,
+       message: 'category was not found'
+     })
+  }
+ }
+
+ exports.deleteUser = async (req, res) => {
+  try {
+   const userId = req.params.id;
+   await User.findByIdAndDelete(userId);
+   res.status(200).json({
+     message: 'user was deleted',
+     userId: req.params.id
+   })
+  } catch (err) {
+      res.status(404).json({
+       err: err,
+       message: 'something went wrong'
+     })
+  }
+ }
+
+
+ exports.getAllItems = async (req, res) => {
+  try {
+   const items = await Item.find();
+   res.status(200).json({
+     message: 'items were fetched',
+     items: items
+   })
+  } catch (err) {
+      res.status(404).json({
+       err: err,
+       message: 'items were not found'
      })
   }
  }

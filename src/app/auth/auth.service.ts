@@ -110,13 +110,11 @@ export class AuthService {
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
 
-      if (authInformation.isAdmin) {
-        console.log(1);
+      if (authInformation.isAdmin === 'true') {
         this.isAdmin = true;
         this.adminStatusListener.next(true);
       }
     }
-
   }
 
   onUserLogout() {
@@ -126,6 +124,7 @@ export class AuthService {
     clearTimeout(this.tokenTimer);
     this.userId = null;
     this.authStatusListener.next(false);
+    this.adminStatusListener.next(false);
     this.router.navigate(['/auth/login']);
     this.clearAuthData();
   }
@@ -150,7 +149,6 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('Settingtimer: ' + duration);
     this.tokenTimer = setTimeout(() => {
       this.onUserLogout();
     }, duration * 1000);
@@ -162,10 +160,6 @@ export class AuthService {
     const userId = localStorage.getItem('userId');
     const isAdmin = localStorage.getItem('isAdmin');
 
-    // if (isAdmin === 'true') {
-
-    // }
-    console.log(isAdmin);
     if (!token || !expirtationDate) {
       return;
     }

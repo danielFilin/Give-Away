@@ -1,0 +1,24 @@
+<h5 class='text-danger text-center'>This section is open for you for demo purposes only. Unless you have an admin permission you cannot perform any actions</h5>
+<table class="table table-dark table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody *ngFor='let user of users; let i = index'>
+    <tr data-toggle="collapse" attr.href="#some{{i}}" role="button" aria-expanded="false" attr.aria-controls="some{{i}}">
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td class='delete' (click)='deleteUser(user._id)'>X</td>
+    </tr>
+    <div class="row">
+      <div class="col">
+        <div class="collapse multi-collapse" id="some{{i}}">
+
+        </div>
+      </div>
+    </div>
+  </tbody>
+</table>

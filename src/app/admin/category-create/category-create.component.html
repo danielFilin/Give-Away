@@ -1,3 +1,4 @@
+<h5 class='text-danger text-center'>This section is open for you for demo purposes only. Unless you have an admin permission you cannot perform any actions</h5>
 <div class="justify-content-center align-items-center container w-50">
   <div class="row">
    <form [formGroup]="categoryCreateForm" id="new-item-form" (ngSubmit)="onSaveCategory()" enctype="multipart/form-data" class="form-margin-top">
@@ -26,7 +27,7 @@
       <div class='image-preview' *ngIf='imagePreview !== "" && imagePreview && categoryCreateForm.get("image").valid'>
         <img [src]="imagePreview" [alt]="categoryCreateForm.value.title">
       </div>
-     <button type='submit' class="btn btn-primary mt-3" >Add new Category</button>
+     <button type='submit' class="btn btn-primary mt-3" >{{editMode? 'Edit Category': 'Add new Category'}}</button>
    </div>
    </form>
  </div>

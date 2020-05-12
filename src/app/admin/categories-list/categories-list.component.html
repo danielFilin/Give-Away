@@ -1,4 +1,5 @@
 
+  <h5 class='text-danger text-center'>This section is open for you for demo purposes only. Unless you have an admin permission you cannot perform any actions</h5>
   <h3 *ngIf='categoriesList == undefined || categoriesList.length <= 0; else elseBlock'>No orders made yet!</h3>
   <ng-template #elseBlock>
   <div class="row" *ngFor = 'let category of categoriesList'>

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { CartService } from '../cart/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,12 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   private authListener: Subscription;
   private adminListener: Subscription;
+  private cartItemsListener: Subscription;
   isUserAuthenticated = false;
   isUserAdmin = false;
-  constructor(private authService: AuthService) { }
+  favoriteItemsNumber: number;
+
+  constructor(private authService: AuthService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.isUserAuthenticated = this.authService.getIsAuthenticated();
@@ -25,6 +29,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     .subscribe(isAdmin => {
       this.isUserAdmin = isAdmin;
     });
+
+    this.cartService.getUserCart();
+
+    this.cartItemsListener = this.cartService.getCartLengthListener()
+    .subscribe( itemsLength => {
+      this.favoriteItemsNumber = itemsLength;
+    });
+
   }
 
   onLogout() {
@@ -34,6 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.authListener.unsubscribe();
     this.adminListener.unsubscribe();
+    this.cartItemsListener.unsubscribe();
   }
 
 }

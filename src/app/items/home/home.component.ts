@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   categoriesEqual: Category[] = [];
   categoriesUnequal: Category[] = [];
   isFree = 0;
+  isLoading = true;
   isEntered = false;
   categoriesSubscription: Subscription;
   constructor(private route: Router, private adminService: AdminService, private renderer: Renderer2) { }
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
         this.categoriesUnequal.push(this.categoriesList[i]);
       }
     }
+    this.isLoading = false;
     });
   }
 

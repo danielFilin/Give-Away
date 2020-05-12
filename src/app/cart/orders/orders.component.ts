@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ItemsService } from 'src/app/items/items.service';
 import { Subscription } from 'rxjs';
 import { Order } from 'src/app/models/order.model';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-orders',
@@ -11,13 +11,12 @@ import { Order } from 'src/app/models/order.model';
 export class OrdersComponent implements OnInit, OnDestroy {
   ordersSubscription: Subscription;
   customerOrders: Order;
-  constructor(private itemsService: ItemsService) { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.itemsService.getOrders();
-    this.ordersSubscription = this.itemsService.getOrdersUpdateListener().subscribe( (orders: Order) => {
+    this.cartService.getOrders();
+    this.ordersSubscription = this.cartService.getOrdersUpdateListener().subscribe( (orders: Order) => {
       this.customerOrders = orders;
-      console.log(this.customerOrders);
     });
   }
 

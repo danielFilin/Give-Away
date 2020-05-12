@@ -28,7 +28,7 @@ export class MyItemsComponent implements OnInit {
     });
   }
 
-  deleteItem(itemId){
+  deleteItem(itemId) {
     this.itemsService.onDelete(itemId);
   }
 

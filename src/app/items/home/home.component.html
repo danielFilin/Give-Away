@@ -11,23 +11,51 @@
     </div>
   </div>
 </div>
-<div class="row" >
-    <div *ngFor = 'let category of categoriesEqual; i as index' class="col-sm m-3 item-select text-center" [routerLink]="category.routerLink" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
+<div class="d-flex justify-content-center" *ngIf='isLoading; else elseBlock'>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <div class="row img-container">
+    <div *ngFor = 'let category of categoriesEqual; i as index' class="col-sm text-center" [routerLink]="category.routerLink">
     <h4>{{category.name}}</h4>
-    <img [src]="category.imagePath" [alt]="category.name">
+    <img [src]="category.imagePath" [alt]="category.name" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)" class='img-responsive fit-image'>
   </div>
 </div>
 <div class="row item-center-parent">
-  <div class="col-sm-4 m-3 item-center text-center" routerLink="/item-list" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
+  <div class="col item-center text-center" routerLink="/item-list">
     <h4>Show All Items</h4>
-    <img src="https://farm1.staticflickr.com/228/476649810_1a0935f6f7_b.jpg" alt="">
+    <img class='img-responsive fit-image center-image' src="https://farm1.staticflickr.com/228/476649810_1a0935f6f7_b.jpg" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
   </div>
 </div>
-<div class="row">
-  <div  *ngFor = 'let category of categoriesUnequal; i as index' class="col-sm m-1 m-3 item-select text-center" [routerLink]="category.routerLink" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
+<div class="row img-container">
+  <div  *ngFor = 'let category of categoriesUnequal; i as index' class="col-sm text-center" [routerLink]="category.routerLink">
     <h4>{{category.name}}</h4>
-    <img [src]="category.imagePath" [alt]="category.name">
+    <img [src]="category.imagePath" [alt]="category.name" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)" class='img-responsive fit-image'>
   </div>
 </div>
+</ng-template>
 
+
+<!-- <ng-template #elseBlock>
+  <div class="row img-container">
+    <div *ngFor = 'let category of categoriesEqual; i as index' class="col-sm text-center" [routerLink]="category.routerLink">
+    <h4>{{category.name}}</h4>
+    <img [src]="category.imagePath" [alt]="category.name" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)" class='img-responsive fit-image'>
+  </div>
+</div>
+<div class="row item-center-parent">
+  <div class="col-sm-4 m-5 item-center text-center" routerLink="/item-list">
+    <h4>Show All Items</h4>
+    <img class='img-responsive fit-image center-image' src="https://farm1.staticflickr.com/228/476649810_1a0935f6f7_b.jpg" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
+  </div>
+</div>
+<div class="row img-container">
+  <div  *ngFor = 'let category of categoriesUnequal; i as index' class="col-sm text-center" [routerLink]="category.routerLink">
+    <h4>{{category.name}}</h4>
+    <img [src]="category.imagePath" [alt]="category.name" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)" class='img-responsive fit-image'>
+  </div>
+</div>
+</ng-template> -->
 
