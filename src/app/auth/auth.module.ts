@@ -6,13 +6,15 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { CommonModule } from '@angular/common';
 import { ResetComponent } from './reset/reset.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
+import { InfoModalComponent } from '../shared/info-modal/info-modal.component';
 
 @NgModule({
   declarations: [
     SignupComponent,
     LoginComponent,
     ResetComponent,
-    ResetPasswordFormComponent
+    ResetPasswordFormComponent,
+    InfoModalComponent
   ],
   imports: [
     FormsModule,

@@ -1,0 +1,8 @@
+<div class="backdrop" (click)='onClose()'></div>
+<div class="alert-box {{messageType}}">
+  <h3 class='text-center'>{{ messageTitle }}</h3>
+  <p>{{ message }}</p>
+  <div class='alert-box-actions'>
+    <button class="{{btnClass}}" (click)='onClose()'>Close</button>
+  </div>
+</div>

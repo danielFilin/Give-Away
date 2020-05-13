@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +13,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   isLoading = false;
   authSubscription: Subscription;
-  showModal = false;
+  isErrorOnLogin = false;
+  infoMessage = 'the data you provided is incorrect';
+  loginOnErrorTitle = 'Error: Login Failed';
+  btnClass = 'btn btn-danger';
+  errClass = 'error';
 
   constructor(private authService: AuthService) { }
 
@@ -24,12 +29,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.authSubscription = this.authService.getAuthStatusListener().subscribe(authStatus => {
       this.isLoading = authStatus;
-      this.showModal = true;
+      this.isErrorOnLogin = true;
     });
   }
 
-  hideModal() {
-    this.showModal = false;
+  onHandleError() {
+    this.isErrorOnLogin = null;
   }
 
   onLogin() {

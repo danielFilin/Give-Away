@@ -21,5 +21,5 @@
 .items-number {
   color: red;
   font-size: 0.9rem;
-  position: fixed;
+  vertical-align: top;
 }

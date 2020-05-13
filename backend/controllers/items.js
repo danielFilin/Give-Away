@@ -160,7 +160,13 @@ exports.addItem = async (req, res, next) => {
 
 exports.deleteItem = async (req, res, next) => {
   try {
-    const deleteResult = await Item.deleteOne({_id: req.params.id, userId: req.userData.userId});
+    let deletedResult;
+    if (req.user.admin) {
+      deleteResult = await Item.deleteOne({_id: req.params.id});
+    } else {
+      deleteResult = await Item.deleteOne({_id: req.params.id, userId: req.userData.userId});
+    }
+
     if (deleteResult.n > 0) {
       res.status(201).json({
         message: 'item was deleted',

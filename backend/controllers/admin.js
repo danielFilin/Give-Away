@@ -108,7 +108,6 @@ exports.getCategories = async (req, res) => {
  exports.getUsers = async (req, res) => {
   try {
    const users = await User.find();
-   console.log(users);
    res.status(200).json({
      message: 'users were fetched',
      users: users

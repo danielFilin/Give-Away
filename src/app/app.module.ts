@@ -16,6 +16,7 @@ import { AdminRoutingModule } from './admin/admin-routing.module';
 import { AdminModule } from './admin/admin.module';
 import { OrdersRoutingModule } from './cart/orders-routing.module';
 import { CartModule } from './cart/cart.module';
+import { InfoModalComponent } from './shared/info-modal/info-modal.component';
 
 
 
@@ -23,6 +24,7 @@ import { CartModule } from './cart/cart.module';
   declarations: [
     AppComponent,
     HeaderComponent,
+    // InfoModalComponent,
   ],
   imports: [
     BrowserModule,

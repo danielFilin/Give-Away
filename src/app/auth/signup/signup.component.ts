@@ -16,9 +16,13 @@ export class SignupComponent implements OnInit, OnDestroy {
   isLoading = false;
   private authSubscription: Subscription;
   private errorMessageSubscription: Subscription;
-  showModal = false;
   differentPasswords = false;
   errorMessage: string;
+  isErrorOnSignup = false;
+  infoMessage = 'the data you provided is incorrect';
+  loginOnErrorTitle = 'Error: Signup Failed';
+  btnClass = 'btn btn-danger';
+  errClass = 'error';
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -32,13 +36,12 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     this.authSubscription = this.authService.getAuthStatusListener().subscribe(authStatus => {
       this.isLoading = authStatus;
-      this.showModal = true;
+      this.isErrorOnSignup = true;
     });
 
     this.errorMessageSubscription = this.authService.getErrorDataListener().subscribe(errorMessage => {
       this.errorMessage = errorMessage;
-    })
-
+    });
   }
 
   onSubmit() {
@@ -63,12 +66,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.errorMessageSubscription.unsubscribe();
   }
 
-  show() {
-  this.showModal = true;
-}
-
-  hide() {
-  this.showModal = false;
-}
+  onHandleError() {
+    this.isErrorOnSignup = null;
+  }
 
 }

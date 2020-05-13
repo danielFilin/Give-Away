@@ -3,6 +3,7 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
+<app-info-modal [message]='infoMessage' [messageTitle]='loginOnErrorTitle' [btnClass]='btnClass' *ngIf='isErrorOnSignup' (close)='onHandleError()' [messageType]='errClass'></app-info-modal>
 <div class="login">
   <div class="login-header">
     <h1>Signup</h1>
@@ -46,22 +47,4 @@
       <h2 *ngIf='prohibittedEmail'>You are trying to use an email that is being used already</h2>
     </div>
   </form>
-</div>
-<div class="container">
-  <div class="modal" id="myModal" [style.display]="showModal ? 'block' : 'none'">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Signup failed</h4>
-          <button type="button" class="close" id='someid' data-dismiss="modal" (click) = "hide()">&times;</button>
-        </div>
-        <div class="modal-body">
-          You entered incorrect data.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" (click) = "hide()">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

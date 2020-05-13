@@ -30,7 +30,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isUserAdmin = isAdmin;
     });
 
-    this.cartService.getUserCart();
+    // throws an error on init, but I am not sure it really provides the cart items
+   // this.cartService.getUserCart();
 
     this.cartItemsListener = this.cartService.getCartLengthListener()
     .subscribe( itemsLength => {

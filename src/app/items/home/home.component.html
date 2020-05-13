@@ -2,7 +2,7 @@
 <div class="main">
 
   <div class="input-group">
-    <input type="text" class="form-control" placeholder="Find what you want" #search>
+    <input type="text" class="form-control" placeholder="Search for..." #search>
     <div class="input-group-append">
       <button class="btn btn-secondary mr-3" type="button" (click)='searchItems(search)'>
         <i class="fa fa-search"></i>
@@ -18,44 +18,21 @@
 </div>
 <ng-template #elseBlock>
   <div class="row img-container">
-    <div *ngFor = 'let category of categoriesEqual; i as index' class="col-sm text-center" [routerLink]="category.routerLink">
+    <div *ngFor = 'let category of categoriesEqual; i as index' class="col-sm text-center">
     <h4>{{category.name}}</h4>
-    <img [src]="category.imagePath" [alt]="category.name" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)" class='img-responsive fit-image'>
+    <img [routerLink]="category.routerLink" [src]="category.imagePath" [alt]="category.name" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)" class='img-responsive fit-image'>
   </div>
 </div>
 <div class="row item-center-parent">
-  <div class="col item-center text-center" routerLink="/item-list">
+  <div class="col item-center text-center">
     <h4>Show All Items</h4>
-    <img class='img-responsive fit-image center-image' src="https://farm1.staticflickr.com/228/476649810_1a0935f6f7_b.jpg" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
+    <img routerLink="/item-list" class='img-responsive fit-image center-image' src="https://farm1.staticflickr.com/228/476649810_1a0935f6f7_b.jpg" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
   </div>
 </div>
-<div class="row img-container">
-  <div  *ngFor = 'let category of categoriesUnequal; i as index' class="col-sm text-center" [routerLink]="category.routerLink">
+<div class="row img-container mb-1">
+  <div  *ngFor = 'let category of categoriesUnequal; i as index' class="col-sm text-center">
     <h4>{{category.name}}</h4>
-    <img [src]="category.imagePath" [alt]="category.name" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)" class='img-responsive fit-image'>
+    <img [routerLink]="category.routerLink" [src]="category.imagePath" [alt]="category.name" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)" class='img-responsive fit-image'>
   </div>
 </div>
 </ng-template>
-
-
-<!-- <ng-template #elseBlock>
-  <div class="row img-container">
-    <div *ngFor = 'let category of categoriesEqual; i as index' class="col-sm text-center" [routerLink]="category.routerLink">
-    <h4>{{category.name}}</h4>
-    <img [src]="category.imagePath" [alt]="category.name" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)" class='img-responsive fit-image'>
-  </div>
-</div>
-<div class="row item-center-parent">
-  <div class="col-sm-4 m-5 item-center text-center" routerLink="/item-list">
-    <h4>Show All Items</h4>
-    <img class='img-responsive fit-image center-image' src="https://farm1.staticflickr.com/228/476649810_1a0935f6f7_b.jpg" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)">
-  </div>
-</div>
-<div class="row img-container">
-  <div  *ngFor = 'let category of categoriesUnequal; i as index' class="col-sm text-center" [routerLink]="category.routerLink">
-    <h4>{{category.name}}</h4>
-    <img [src]="category.imagePath" [alt]="category.name" (mouseenter)="toggleClass($event)" (mouseleave)="toggleClass($event)" class='img-responsive fit-image'>
-  </div>
-</div>
-</ng-template> -->
-

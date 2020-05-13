@@ -13,12 +13,7 @@ const BACKEND_URL = environment.apiUrl;
 })
 export class ItemsService {
   private items: Item[] = [];
-  // private userCart: Item[] = [];
-  // private orders: Order[] = [];
   private UpdatedItems = new Subject<Item[]>();
-  // // private updatedCart = new Subject<Item[]>();
-  // private updatedOrdersList = new Subject<Order>();
-  // private updatedFavorites = new Subject<Item[]>();
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
 
@@ -53,18 +48,6 @@ export class ItemsService {
     return this.http.get<{message: string, items: Item, creator: object}>(BACKEND_URL + `items/${id}`);
   }
 
-  // getCartUpdateListener() {
-  //   return this.updatedCart.asObservable();
-  // }
-
-  // getOrdersUpdateListener() {
-  //   return this.updatedOrdersList.asObservable();
-  // }
-
-  // getFavoritesListener() {
-  //   return this.updatedFavorites.asObservable();
-  // }
-
   getItems(postsPerPage: number, currentPage: number, category: string, user: number, price: number) {
     const queryParams = `?category=${category}&price=${price}&pagesize=${postsPerPage}&page=${currentPage}&user=${user}`;
     this.http.get<{message: string, items: Item[]}>(BACKEND_URL + `items${queryParams}`)
@@ -98,79 +81,18 @@ export class ItemsService {
     });
   }
 
-  onDelete(itemId) {
+  onItemDelete(itemId, isAdmin?) {
     this.http.delete<{message: string}>(BACKEND_URL + `delete/${itemId}`)
     .subscribe((responseData) => {
       const updatedItems = this.items.filter(item => item._id !== itemId);
       this.items = updatedItems;
       this.UpdatedItems.next([...this.items]);
-      this.router.navigate(['/item-list']);
+      if (isAdmin) {
+        this.router.navigate(['admin/items-list']);
+      } else {
+        this.router.navigate(['/item-list']);
+      }
     });
   }
-
-  //  onAddToCart(itemId) {
-  //   this.http.post<{message: string}>(BACKEND_URL + `cart/${itemId}`, itemId)
-  //   .subscribe((responseData) => {
-  //     this.updatedCart.next();
-  //   });
-  // }
-
-  // getUserCart() {
-  //   this.http.get<{message: string, cartItems: Item[]}>(BACKEND_URL + `user-cart`)
-  //   .subscribe((itemData) => {
-  //     this.userCart = (itemData.cartItems);
-  //     this.updatedCart.next([...this.userCart]);
-  //   });
-  // }
-
-  // deleteItemFromCart(itemId) {
-  //   this.http.delete<{message: string, updatedCart: Item[]}>(BACKEND_URL + `delete-from-cart/${itemId}`)
-  //   .subscribe((responseData) => {
-  //     this.userCart = responseData.updatedCart;
-  //     this.updatedCart.next([...this.userCart]);
-  //   });
-  // }
-
-  // makeOrder() {
-  //   this.http.get<{message: string, order: Order}>(BACKEND_URL + `orders`)
-  //   .subscribe((itemData) => {
-  //     this.updatedOrdersList.next(itemData.order);
-  //     this.router.navigate(['/item-list']);
-
-  //   });
-  // }
-
-  // getOrders() {
-  //   this.http.get<{message: string, orders: Order}>(BACKEND_URL + `get-orders`)
-  //   .subscribe((itemData) => {
-  //     this.updatedOrdersList.next(itemData.orders);
-  //   });
-  // }
-
-  // getCurrentOrders() {
-  //   return this.orders;
-  // }
-
-  // onAddToFavorites(itemId) {
-  //   const favoriteItemId = {id: itemId};
-  //   this.http.post<{message: string}>(BACKEND_URL + `favorites`, favoriteItemId)
-  //   .subscribe((responseData) => {
-  //     this.updatedFavorites.next();
-  //   });
-  // }
-
-  // getFavorites() {
-  //   this.http.get<{message: string, items: { items: Item[]}}>(BACKEND_URL + `favorites`)
-  //   .subscribe((responseData) => {
-  //     this.updatedFavorites.next(responseData.items.items);
-  //   });
-  // }
-
-  // removeFromFavorites(itemId) {
-  //   this.http.delete<{message: string,  updatedFavorites: { items: Item[]}}>(BACKEND_URL + `delete-from-favorites/${itemId}`)
-  //   .subscribe((responseData) => {
-  //     this.updatedFavorites.next(responseData.updatedFavorites.items);
-  //   });
-  // }
 
 }

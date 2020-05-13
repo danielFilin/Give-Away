@@ -10,7 +10,7 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-      <i class="fa cart" style="font-size:24px" routerLink="/cart">&#xf07a;<span class='items-number'> {{favoriteItemsNumber}} </span></i>
+      <i *ngIf='isUserAuthenticated' class="fa cart mr-1" style="font-size:24px" routerLink="/cart">&#xf07a;<span class='items-number' > {{favoriteItemsNumber}} </span></i>
 
       <div class="dropdown" *ngIf='isUserAuthenticated'>
         <button class="btn btn-secondary dropdown-toggle mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

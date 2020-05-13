@@ -17,12 +17,12 @@ h4 {
     width: 60%;
   }
 
-:hover div {
+:hover img {
   cursor: pointer;
 }
 
 .chosen {
-  background-color: bisque !important;
+  background-color: #791497 !important;
 }
 
 .main {

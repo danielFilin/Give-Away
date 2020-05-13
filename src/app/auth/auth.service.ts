@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { environment} from '../../environments/environment';
+import { CartService } from '../cart/cart.service';
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -21,7 +22,7 @@ export class AuthService {
   private adminStatusListener = new Subject<boolean>();
   private authUserCredentials = new Subject<{userId: string, passwordToken: string}>();
   private errorDataListener = new Subject<string>();
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private cartService: CartService) { }
 
   getToken() {
     return this.token;
@@ -81,6 +82,7 @@ export class AuthService {
         this.isAuthenticated = true;
         this.userId = responseData.userId;
         this.authStatusListener.next(true);
+        this.cartService.getUserCart();
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
         this.saveAuthorizationData(this.token, expirationDate, this.userId, responseData.admin);
@@ -106,6 +108,7 @@ export class AuthService {
     if (expiresIn > 0) {
       this.token = authInformation.token;
       this.isAuthenticated = true;
+      this.cartService.getUserCart();
       this.userId = authInformation.userId;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);

@@ -29,7 +29,7 @@ export class MyItemsComponent implements OnInit {
   }
 
   deleteItem(itemId) {
-    this.itemsService.onDelete(itemId);
+    this.itemsService.onItemDelete(itemId);
   }
 
 }
