@@ -17,10 +17,10 @@ router.delete('/admin/delete-category/:id', checkAuth, checkAdmin, adminControll
 
 router.put('/admin/edit-category/:id', checkAuth, checkAdmin, extractFile, adminController.editCategory);
 
-router.get('/admin/get-users', checkAuth, checkAdmin, adminController.getUsers);
+router.get('/admin/get-users', checkAuth, adminController.getUsers);
 
 router.delete('/admin/delete-user/:id', checkAuth, checkAdmin, adminController.deleteUser);
 
-router.get('/admin/get-items', checkAuth, checkAdmin, adminController.getAllItems);
+router.get('/admin/get-items', checkAuth, adminController.getAllItems);
 
 module.exports = router;

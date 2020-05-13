@@ -4,8 +4,10 @@ import { CategoryCreateComponent } from './category-create/category-create.compo
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { AllItemsComponent } from './all-items/all-items.component';
+import { AdminGuard } from './admin.guard';
 
 const routes: Routes = [
+  // add canActivate: [AdminGuard] to all admin routes if not in demo mode.
   { path: 'admin/category-create', component: CategoryCreateComponent},
   { path: 'admin/edit/:id', component: CategoryCreateComponent},
   { path: 'admin/users-list', component: ManageUsersComponent},
