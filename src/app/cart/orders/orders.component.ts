@@ -11,12 +11,14 @@ import { CartService } from '../cart.service';
 export class OrdersComponent implements OnInit, OnDestroy {
   ordersSubscription: Subscription;
   customerOrders: Order;
+  isLoading = true;
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
     this.cartService.getOrders();
     this.ordersSubscription = this.cartService.getOrdersUpdateListener().subscribe( (orders: Order) => {
       this.customerOrders = orders;
+      this.isLoading = false;
     });
   }
 

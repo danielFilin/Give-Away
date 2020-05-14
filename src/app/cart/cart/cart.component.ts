@@ -11,6 +11,7 @@ import { CartService } from '../cart.service';
 export class CartComponent implements OnInit, OnDestroy {
   cartItems;
   cartSubscription: Subscription;
+  isLoading = true;
 
   constructor(private cartService: CartService) { }
 
@@ -18,8 +19,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.getUserCart();
     this.cartSubscription = this.cartService.getCartUpdateListener().subscribe((items: Item[]) => {
       this.cartItems = items;
+      this.isLoading = false;
     });
-    console.log(this.cartItems);
   }
 
   onItemDelete(itemId) {
