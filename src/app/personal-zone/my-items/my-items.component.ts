@@ -4,6 +4,7 @@ import { ItemsService } from 'src/app/items/items.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-my-items',
   templateUrl: './my-items.component.html',
@@ -14,6 +15,15 @@ export class MyItemsComponent implements OnInit {
   isLoading = true;
   itemsSubscription: Subscription;
   userId: string;
+  AffirmationText = 'You are about to delete your item';
+  infoMessage = 'Are you sure you want to delete this item?';
+  btnClass = 'btn btn-danger';
+  btnClass2 = 'btn btn-default';
+  isUserSure = false;
+  errClass = 'error';
+  idToDelete: string;
+
+
   constructor(private itemsService: ItemsService, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -29,7 +39,17 @@ export class MyItemsComponent implements OnInit {
   }
 
   deleteItem(itemId) {
-    this.itemsService.onItemDelete(itemId);
+    this.isUserSure = true;
+    this.idToDelete = itemId;
+
+  }
+
+  onAbortDelete() {
+    this.isUserSure = false;
+  }
+
+  onConfirmDelete() {
+    this.itemsService.onItemDelete(this.idToDelete);
   }
 
 }

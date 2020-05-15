@@ -10,8 +10,10 @@ export class InfoModalComponent implements OnInit {
   @Input() message: string;
   @Input() messageTitle: string;
   @Input() btnClass: string;
+  @Input() btnClass2: string;
   @Input() messageType: string;
   @Output() close = new EventEmitter<void>();
+  @Output() open = new EventEmitter<void>();
 
   constructor() { }
 
@@ -20,6 +22,10 @@ export class InfoModalComponent implements OnInit {
 
   onClose() {
     this.close.emit();
+  }
+
+  onConfirm() {
+    this.open.emit();
   }
 
 }

@@ -5,6 +5,7 @@
   </div>
 </div>
 <h2 class='text-center mb-3'>Manage your items!</h2>
+<app-info-modal [message]='infoMessage' [messageTitle]='AffirmationText' [btnClass]='btnClass' *ngIf='isUserSure' (close)='onAbortDelete()' (open)='onConfirmDelete()' [messageType]='errClass'></app-info-modal>
 <h2 *ngIf='items.length <= 0'> No Items Added yet</h2>
 <div class="row">
   <div class="card col-sm-4 border-0" style="width: 25%;" *ngFor='let item of items'>

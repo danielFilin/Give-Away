@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ResetComponent } from './reset/reset.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 import { InfoModalComponent } from '../shared/info-modal/info-modal.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,13 +15,15 @@ import { InfoModalComponent } from '../shared/info-modal/info-modal.component';
     LoginComponent,
     ResetComponent,
     ResetPasswordFormComponent,
-    InfoModalComponent
+
+    // InfoModalComponent
   ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
     AuthRoutingModule,
-    CommonModule
+    CommonModule,
+    SharedModule
   ]
 })
 

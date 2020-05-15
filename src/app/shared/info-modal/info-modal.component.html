@@ -3,6 +3,7 @@
   <h3 class='text-center'>{{ messageTitle }}</h3>
   <p>{{ message }}</p>
   <div class='alert-box-actions'>
+    <button class="btn btn-primary" (click)='onConfirm()'>Confirm</button>
     <button class="{{btnClass}}" (click)='onClose()'>Close</button>
   </div>
 </div>

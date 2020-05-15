@@ -5,6 +5,8 @@ import { PersonalRoutingModule } from './personal-routing.module';
 import { MyItemsComponent } from './my-items/my-items.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MyFavoritesComponent } from './my-favorites/my-favorites.component';
+import { InfoModalComponent } from '../shared/info-modal/info-modal.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { MyFavoritesComponent } from './my-favorites/my-favorites.component';
     ReactiveFormsModule,
     PersonalRoutingModule,
     CommonModule,
-    BrowserModule
+    BrowserModule,
+    SharedModule
   ]
 })
 
